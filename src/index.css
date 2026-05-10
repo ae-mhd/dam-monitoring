@@ -95,4 +95,20 @@
   0%, 100% { opacity: 1; transform: scale(1); }
   50%       { opacity: 0.5; transform: scale(1.4); }
 }
+@keyframes logo-pulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0px rgba(var(--accent), 0)); }
+  50% { transform: scale(1.05); filter: drop-shadow(0 0 20px rgba(var(--accent), 0.3)); }
+}
+@keyframes progress-load {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+@keyframes shimmer-flow {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
 .pulse-dot { animation: pulse-dot 1.5s ease-in-out infinite; }
+.logo-pulse { animation: logo-pulse 3s ease-in-out infinite; }
+.progress-load { animation: progress-load 2.5s ease-in-out forwards; }
+.shimmer-flow { animation: shimmer-flow 2s infinite linear; }

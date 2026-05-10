@@ -1,9 +1,11 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { AppShell } from '@/components/layout/AppShell'
+import { LoadingScreen } from '@/components/layout/LoadingScreen'
 import { useDashboardStore } from '@/store/dashboardStore'
 
 export default function App() {
   const { theme, activeView, setActiveView } = useDashboardStore()
+  const [isLoading, setIsLoading] = useState(true)
 
   // Sync persisted theme to DOM on first mount
   useEffect(() => {
@@ -37,5 +39,10 @@ export default function App() {
     }
   }, [activeView])
 
-  return <AppShell />
+  return (
+    <>
+      {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
+      <AppShell />
+    </>
+  )
 }

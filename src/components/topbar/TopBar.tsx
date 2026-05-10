@@ -5,6 +5,7 @@ import { cn, getAlertInfo } from "@/lib/utils";
 import { useLatestSensorReading } from "@/hooks/useSensorData";
 import { METRICS } from "@/lib/constants";
 import type { AlertLevel, MetricConfig } from "@/types";
+import logo from "@/assets/bg-logo.png";
 
 export function TopBar() {
   const { theme, toggleTheme, toggleSidebar } = useDashboardStore();
@@ -106,13 +107,7 @@ export function TopBar() {
 
       {/* Logo */}
       <div className="flex items-center gap-2 mr-4">
-        <span className="text-2xl">🌊</span>
-        <div>
-          <h1 className="text-sm font-bold text-primary leading-none">
-            DamWatch
-          </h1>
-          <p className="text-xs text-muted leading-none">Monitoring System</p>
-        </div>
+        <img src={logo} alt="Logo" className="w-24 h-16 object-contain" />
       </div>
 
       {/* Global Alert */}
