@@ -3,6 +3,7 @@ import { Sidebar } from "@/components/sidebar/Sidebar";
 import { LocationPanel } from "@/components/location/LocationPanel";
 import { MonitoringPanel } from "@/components/layout/MonitoringPanel";
 import { AnalyticsPanel } from "@/components/layout/AnalyticsPanel";
+import { AlertsPanel } from "@/components/layout/AlertsPanel";
 import { useDashboardStore } from '@/store/dashboardStore'
 import { cn } from "@/lib/utils";
 
@@ -28,17 +29,19 @@ export function AppShell() {
           <div className="max-w-screen-2xl mx-auto h-full">
             {/* Two-column layout on desktop */}
             <div className="flex flex-col lg:flex-row gap-5 h-full">
-              {/* Left: Monitoring Panel or Analytics Panel (70%) */}
+              {/* Left: Content Panel */}
               <div className="flex-1 min-w-0">
                 {activeView === 'analytics' ? (
                   <AnalyticsPanel />
+                ) : activeView === 'alerts' ? (
+                  <AlertsPanel />
                 ) : (
                   <MonitoringPanel />
                 )}
               </div>
 
-              {/* Right: Location Panel (30%) - Hidden in Analytics */}
-              {activeView !== 'analytics' && (
+              {/* Right: Location Panel - Hidden in Analytics and Alerts */}
+              {activeView !== 'analytics' && activeView !== 'alerts' && (
                 <aside className="w-full lg:w-[280px] xl:w-[300px] shrink-0 flex flex-col gap-4">
                   <LocationPanel />
                 </aside>

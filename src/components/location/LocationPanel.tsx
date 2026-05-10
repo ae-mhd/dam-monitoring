@@ -29,17 +29,7 @@ export function LocationPanel() {
         <LocationInformation state={state} isLoading={isLoading} />
       </div>
 
-      {/* Live indicator */}
-      <div className="glass rounded-xl p-4 flex items-center justify-between animate-fade-in stagger-2">
-        <div>
-          <p className="text-xs text-muted">Data Refresh</p>
-          <p className="text-sm font-semibold text-primary">Every 30 seconds</p>
-        </div>
-        <div className="flex items-center gap-1.5">
-          <span className="h-2 w-2 rounded-full bg-emerald-400 pulse-dot" />
-          <span className="text-xs text-emerald-400 font-medium">Live</span>
-        </div>
-      </div>
+
     </div>
   )
 }

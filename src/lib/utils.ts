@@ -15,9 +15,9 @@ export function cn(...inputs: ClassValue[]) {
 // Each entry is an ordered list of { max, level, label } checked low→high.
 // For o2 (dissolved oxygen) the scale is INVERTED: low = danger.
 
-type AlertRule = { max: number; level: AlertLevel; label: string };
+export type AlertRule = { max: number; level: AlertLevel; label: string };
 
-const ALERT_RULES: Partial<Record<MetricKey, AlertRule[]>> = {
+export const ALERT_RULES: Partial<Record<MetricKey, AlertRule[]>> = {
   // 🫧 Dissolved Oxygen (mg/L) — inverted: low is dangerous
   o2: [
     { max: 2, level: "critical", label: "Critical danger (asphyxiation)" },

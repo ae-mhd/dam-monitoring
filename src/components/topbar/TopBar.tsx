@@ -165,7 +165,25 @@ export function TopBar() {
       <div className="flex-1" />
 
       {/* Actions */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-4">
+        {/* Refresh Info */}
+        <div className="hidden sm:flex items-center gap-3 px-3 py-1.5 rounded-lg bg-card/50 border border-card shadow-sm">
+          <div className="flex flex-col">
+            <span className="text-[10px] text-muted uppercase tracking-wider font-semibold leading-none mb-1">
+              Data Refresh
+            </span>
+            <span className="text-[11px] text-primary font-bold leading-none">
+              Every 30s
+            </span>
+          </div>
+          <div className="flex items-center gap-1.5 pl-2 border-l border-card">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 pulse-dot" />
+            <span className="text-[11px] text-emerald-500 font-bold uppercase tracking-wide">
+              Live
+            </span>
+          </div>
+        </div>
+
         <button
           id="refresh-btn"
           onClick={refresh}

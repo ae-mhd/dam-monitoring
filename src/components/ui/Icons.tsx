@@ -31,6 +31,8 @@ import {
   ChevronLeft,
   ChevronRight,
   Columns,
+  ShieldAlert,
+  BookOpen,
   type LucideProps,
 } from 'lucide-react'
 
@@ -84,5 +86,5 @@ export {
   Database, Beaker, Activity, BarChart2, Settings, Bell, Map, Home,
   TrendingUp, TrendingDown, Minus, Sun, Moon, Search, Menu, X,
   Copy, Check, RefreshCw, AlertTriangle, AlertCircle, WifiOff,
-  ChevronLeft, ChevronRight, Columns,
+  ChevronLeft, ChevronRight, Columns, ShieldAlert, BookOpen,
 }
