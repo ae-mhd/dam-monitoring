@@ -163,7 +163,7 @@ export function enrichSensorReading(
   if (!reading) return null;
 
   const TAN = reading.nh4;
-  const temp = reading.temperature ?? reading.water_temperature;
+  const temp = reading.water_temperature;
   const pH = reading.ph;
 
   if (TAN != null && temp != null && pH != null) {

@@ -42,16 +42,11 @@ export function LocationInformation({ state, isLoading }: LocationInformationPro
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-2">
-        <div className="bg-card rounded-lg p-2.5">
-          <p className="text-xs text-muted mb-0.5">Postal Code</p>
-          <p className="text-sm font-medium text-primary">{state.postal_code}</p>
-        </div>
-        <div className="bg-card rounded-lg p-2.5">
-          <p className="text-xs text-muted mb-0.5">State ID</p>
-          <p className="text-sm font-medium text-primary">{state.state_id}</p>
-        </div>
+      <div className="bg-card rounded-lg p-2.5">
+        <p className="text-xs text-muted mb-0.5">State ID</p>
+        <p className="text-sm font-medium text-primary">{state.state_id}</p>
       </div>
+
 
       <div className="bg-card rounded-lg p-2.5 flex items-center justify-between gap-2">
         <div className="min-w-0">

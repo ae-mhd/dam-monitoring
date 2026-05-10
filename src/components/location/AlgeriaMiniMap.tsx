@@ -82,7 +82,7 @@ export function AlgeriaMiniMap({ state }: AlgeriaMiniMapProps) {
 
       markerRef.current = L.marker([coords.lat, coords.lng], { icon: pulseIcon })
         .addTo(map)
-        .bindPopup(`<b>${state.name}</b><br/>${state.postal_code}`)
+        .bindPopup(`<b>${state.name}</b>`)
     }
 
     map.flyTo([coords.lat, coords.lng], 8, { duration: 1.2 })
