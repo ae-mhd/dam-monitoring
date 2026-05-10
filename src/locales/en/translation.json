@@ -39,7 +39,8 @@
     "online": "Online",
     "offline": "Offline",
     "coordinates": "Coordinates",
-    "copyCoordinates": "Copy coordinates"
+    "copyCoordinates": "Copy coordinates",
+    "realTimeMonitoring": "Real-time Monitoring"
   },
   "metrics": {
     "temperature": "Air Temperature",

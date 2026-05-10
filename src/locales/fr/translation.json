@@ -39,7 +39,8 @@
     "online": "En ligne",
     "offline": "Hors ligne",
     "coordinates": "Coordonnées",
-    "copyCoordinates": "Copier les coordonnées"
+    "copyCoordinates": "Copier les coordonnées",
+    "realTimeMonitoring": "Surveillance en temps réel"
   },
   "metrics": {
     "temperature": "Température de l'air",

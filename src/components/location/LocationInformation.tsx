@@ -3,6 +3,7 @@ import { Copy, Check, Map } from '@/components/ui/Icons'
 import { Skeleton } from '@/components/ui/Skeleton'
 import type { StationState } from '@/types'
 import { useTranslation } from 'react-i18next'
+import boatGif from '@/assets/boat_gif.gif'
 
 interface LocationInformationProps {
   state: StationState | null | undefined
@@ -49,7 +50,17 @@ export function LocationInformation({ state, isLoading }: LocationInformationPro
         <p className="text-sm font-medium text-primary">{state.state_id}</p>
       </div>
 
-
+      <div className="rounded-xl overflow-hidden border border-white/5 shadow-2xl bg-black/20 group relative">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
+        <img 
+          src={boatGif} 
+          alt="Dam Monitoring" 
+          className="w-full h-56 object-cover opacity-90 transition-transform duration-700 group-hover:scale-110"
+        />
+        <div className="absolute bottom-2 left-3 z-20 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+          <p className="text-[10px] font-bold text-white/90 uppercase tracking-widest">{t('location.realTimeMonitoring')}</p>
+        </div>
+      </div>
       <div className="bg-card rounded-lg p-2.5 flex items-center justify-between gap-2">
         <div className="min-w-0">
           <p className="text-xs text-muted mb-0.5">{t("location.coordinates")}</p>
