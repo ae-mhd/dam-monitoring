@@ -25,7 +25,6 @@ export function AlertsPanel() {
 
   const handleMetricClick = (key: MetricKey) => {
     setActiveMetric(key);
-    setActiveView("dashboard");
   };
 
   // Find metrics that currently have an alert

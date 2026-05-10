@@ -22,7 +22,7 @@ interface AnalyticsChartProps {
 
 interface CustomTooltipProps {
   active?: boolean
-  payload?: TooltipPayload[]
+  payload?: TooltipPayload
   label?: string | number
   configs: MetricConfig[]
 }
@@ -33,11 +33,11 @@ function CustomTooltip({ active, payload, label, configs }: CustomTooltipProps) 
     <div className="glass rounded-xl px-4 py-3 text-sm shadow-xl border border-slate-700">
       <p className="text-muted mb-2 font-medium">{label}</p>
       <div className="flex flex-col gap-1.5">
-        {payload.map((entry: any) => {
+        {payload.map((entry) => {
           const config = configs.find(c => c.key === entry.dataKey)
           if (!config) return null
           return (
-            <div key={entry.dataKey} className="flex items-center justify-between gap-4">
+            <div key={String(entry.dataKey)} className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full" style={{ background: entry.color }} />
                 <span className="text-slate-300">{config.label}</span>
@@ -53,18 +53,23 @@ function CustomTooltip({ active, payload, label, configs }: CustomTooltipProps) 
   )
 }
 
+interface ChartPoint {
+  time: string
+  [key: string]: string | number | null
+}
+
 export function AnalyticsChart({ configs, data, isLoading }: AnalyticsChartProps) {
   const chartData = useMemo(
     () =>
       data.map((d) => {
-        const point: any = {
+        const point: ChartPoint = {
           time: new Date(d.created_at).toLocaleTimeString([], {
             hour: '2-digit',
             minute: '2-digit',
           }),
         }
         configs.forEach(c => {
-          point[c.key] = d[c.key] ?? null
+          point[c.key] = (d[c.key as keyof SensorReading] as number) ?? null
         })
         return point
       }),
