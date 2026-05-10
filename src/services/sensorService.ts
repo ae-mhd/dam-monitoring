@@ -39,6 +39,29 @@ export async function fetchHistoricalReadings(
   return data.data
 }
 
+// Fetch paginated sensor readings for table
+export async function fetchPaginatedSensorReadings(
+  stateId: string,
+  timeRange: string,
+  page: number = 1,
+  perPage: number = 10
+): Promise<PaginatedResponse<SensorReading>> {
+  const { from, to } = getTimeRangeDates(timeRange)
+  
+  const { data } = await api.post<PaginatedResponse<SensorReading>>(
+    '/sensor-readings/search',
+    {
+      pagination: { per_page: perPage, current_page: page },
+      orderBy: 'created_at',
+      order: 'desc',
+      from,
+      to,
+      state_id: stateId,
+    }
+  )
+  return data
+}
+
 // Fetch state information
 export async function fetchStateInfo(
   stateId: string

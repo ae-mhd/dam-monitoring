@@ -35,7 +35,7 @@ const ALERT_RULES: Partial<Record<MetricKey, AlertRule[]>> = {
     { max: 50,       level: 'warning',  label: 'Algal bloom'                     },
     { max: Infinity, level: 'critical', label: 'Severe eutrophication'           },
   ],
-  // 🧪 NH₄⁺ Ammonium (mg/L)
+  // 🧪 TAN (Azote ammoniacal total) (mg/L)
   nh4: [
     { max: 0.2,      level: 'normal',   label: 'Clean water'           },
     { max: 0.5,      level: 'caution',  label: 'Slight pollution'      },

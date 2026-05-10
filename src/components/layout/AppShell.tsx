@@ -2,11 +2,12 @@ import { TopBar } from "@/components/topbar/TopBar";
 import { Sidebar } from "@/components/sidebar/Sidebar";
 import { LocationPanel } from "@/components/location/LocationPanel";
 import { MonitoringPanel } from "@/components/layout/MonitoringPanel";
-// import { useDashboardStore } from '@/store/dashboardStore'
+import { AnalyticsPanel } from "@/components/layout/AnalyticsPanel";
+import { useDashboardStore } from '@/store/dashboardStore'
 import { cn } from "@/lib/utils";
 
 export function AppShell() {
-  // const { sidebarCollapsed } = useDashboardStore()
+  const { activeView } = useDashboardStore()
 
   return (
     <div className="flex flex-col h-screen overflow-hidden bg-primary">
@@ -27,15 +28,21 @@ export function AppShell() {
           <div className="max-w-screen-2xl mx-auto h-full">
             {/* Two-column layout on desktop */}
             <div className="flex flex-col lg:flex-row gap-5 h-full">
-              {/* Left: Location Panel (30%) */}
-              <aside className="w-full lg:w-[280px] xl:w-[300px] shrink-0 flex flex-col gap-4">
-                <LocationPanel />
-              </aside>
-
-              {/* Right: Monitoring Panel (70%) */}
+              {/* Left: Monitoring Panel or Analytics Panel (70%) */}
               <div className="flex-1 min-w-0">
-                <MonitoringPanel />
+                {activeView === 'analytics' ? (
+                  <AnalyticsPanel />
+                ) : (
+                  <MonitoringPanel />
+                )}
               </div>
+
+              {/* Right: Location Panel (30%) - Hidden in Analytics */}
+              {activeView !== 'analytics' && (
+                <aside className="w-full lg:w-[280px] xl:w-[300px] shrink-0 flex flex-col gap-4">
+                  <LocationPanel />
+                </aside>
+              )}
             </div>
           </div>
         </main>

@@ -102,7 +102,7 @@ export const METRICS: MetricConfig[] = [
   },
   {
     key: 'nh4',
-    label: 'Ammonium NH₄',
+    label: 'TAN (Azote ammoniacal total)',
     unit: 'mg/L',
     icon: 'beaker',
     color: '#fb923c',

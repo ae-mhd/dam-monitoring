@@ -30,6 +30,7 @@ import {
   WifiOff,
   ChevronLeft,
   ChevronRight,
+  Columns,
   type LucideProps,
 } from 'lucide-react'
 
@@ -66,6 +67,7 @@ const iconMap: Record<string, React.FC<LucideProps>> = {
   'wifi-off': WifiOff,
   'chevron-left': ChevronLeft,
   'chevron-right': ChevronRight,
+  columns: Columns,
 }
 
 interface IconProps extends LucideProps {
@@ -82,5 +84,5 @@ export {
   Database, Beaker, Activity, BarChart2, Settings, Bell, Map, Home,
   TrendingUp, TrendingDown, Minus, Sun, Moon, Search, Menu, X,
   Copy, Check, RefreshCw, AlertTriangle, AlertCircle, WifiOff,
-  ChevronLeft, ChevronRight,
+  ChevronLeft, ChevronRight, Columns,
 }
