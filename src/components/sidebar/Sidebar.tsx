@@ -3,9 +3,7 @@ import { useDashboardStore } from "@/store/dashboardStore";
 import {
   Home,
   BarChart2,
-  Map,
   Bell,
-  Settings,
   ChevronLeft,
   ChevronRight,
 } from "@/components/ui/Icons";
@@ -13,9 +11,7 @@ import {
 const NAV_ITEMS = [
   { id: "dashboard", label: "Dashboard", icon: Home },
   { id: "analytics", label: "Analytics", icon: BarChart2 },
-  { id: "map", label: "Map View", icon: Map },
   { id: "alerts", label: "Alerts", icon: Bell },
-  { id: "settings", label: "Settings", icon: Settings },
 ];
 
 export function Sidebar() {
