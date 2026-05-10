@@ -6,8 +6,11 @@ import { useLatestSensorReading } from "@/hooks/useSensorData";
 import { METRICS } from "@/lib/constants";
 import type { AlertLevel, MetricConfig } from "@/types";
 import logo from "@/assets/bg-logo.png";
+import { LanguageSwitcher } from "./LanguageSwitcher";
+import { useTranslation } from "react-i18next";
 
 export function TopBar() {
+  const { t } = useTranslation();
   const { theme, toggleTheme, toggleSidebar } = useDashboardStore();
   const qc = useQueryClient();
   const { data: latestReading } = useLatestSensorReading();
@@ -100,7 +103,7 @@ export function TopBar() {
         id="sidebar-toggle"
         onClick={toggleSidebar}
         className="p-2 rounded-lg hover:bg-card-hover text-secondary hover:text-primary transition-colors"
-        aria-label="Toggle sidebar"
+        aria-label={t("topbar.toggleSidebar")}
       >
         <Menu size={20} />
       </button>
@@ -142,7 +145,7 @@ export function TopBar() {
 
             <div className="flex flex-col pr-1">
               <span className="text-[10px] uppercase tracking-wider font-bold opacity-70 mb-0.5 leading-none">
-                {worstMetric.label}
+                {t(`metrics.${worstMetric.key}`)}
               </span>
               <span
                 className={cn(
@@ -150,7 +153,7 @@ export function TopBar() {
                   activeStyle.text,
                 )}
               >
-                {worstAlert.label || worstAlert.level}
+                {t(`alerts.rules.${worstMetric.key}.${worstAlert.level}`, worstAlert.label || worstAlert.level)}
               </span>
             </div>
           </div>
@@ -165,33 +168,35 @@ export function TopBar() {
         <div className="hidden sm:flex items-center gap-3 px-3 py-1.5 rounded-lg bg-card/50 border border-card shadow-sm">
           <div className="flex flex-col">
             <span className="text-[10px] text-muted uppercase tracking-wider font-semibold leading-none mb-1">
-              Data Refresh
+              {t("topbar.dataRefresh")}
             </span>
             <span className="text-[11px] text-primary font-bold leading-none">
-              Every 30s
+              {t("topbar.every30s")}
             </span>
           </div>
           <div className="flex items-center gap-1.5 pl-2 border-l border-card">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 pulse-dot" />
             <span className="text-[11px] text-emerald-500 font-bold uppercase tracking-wide">
-              Live
+              {t("topbar.live")}
             </span>
           </div>
         </div>
+
+        <LanguageSwitcher />
 
         <button
           id="refresh-btn"
           onClick={refresh}
           className="p-2 rounded-lg hover:bg-card-hover text-secondary hover:text-primary transition-colors"
-          aria-label="Refresh data"
-          title="Refresh data"
+          aria-label={t("topbar.refreshData")}
+          title={t("topbar.refreshData")}
         >
           <RefreshCw size={18} />
         </button>
         <button
           id="notification-btn"
           className="relative p-2 rounded-lg hover:bg-card-hover text-secondary hover:text-primary transition-colors"
-          aria-label="Notifications"
+          aria-label={t("topbar.notifications")}
         >
           <Bell size={18} />
           <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-red-500" />
@@ -200,9 +205,9 @@ export function TopBar() {
           id="theme-toggle"
           onClick={toggleTheme}
           className="p-2 rounded-lg hover:bg-card-hover text-secondary hover:text-primary transition-colors"
-          aria-label="Toggle theme"
+          aria-label={t("topbar.toggleTheme")}
           title={
-            theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+            theme === "dark" ? t("topbar.switchToLightMode") : t("topbar.switchToDarkMode")
           }
         >
           {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}

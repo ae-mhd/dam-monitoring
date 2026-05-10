@@ -11,8 +11,10 @@ import { METRIC_MAP } from "@/lib/constants";
 import { Icon, AlertCircle, RefreshCw, Activity } from "@/components/ui/Icons";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 
 export function MonitoringPanel() {
+  const { t } = useTranslation();
   const { activeMetric } = useDashboardStore();
   const config = METRIC_MAP[activeMetric];
   const qc = useQueryClient();
@@ -35,8 +37,8 @@ export function MonitoringPanel() {
     <div className="flex flex-col gap-5 min-h-0">
       <PageHeader
         icon={Activity}
-        title="Live Monitoring"
-        description="Real-time sensor readings and historical trends"
+        title={t("monitoring.liveMonitoring")}
+        description={t("monitoring.liveMonitoringDesc")}
       />
 
       {/* Error Banner */}
@@ -44,13 +46,13 @@ export function MonitoringPanel() {
         <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-red-500/10 border border-red-500/30 animate-fade-in">
           <AlertCircle size={16} className="text-red-400 shrink-0" />
           <p className="text-sm text-red-300 flex-1">
-            Failed to load sensor data.
+            {t("analytics.failedLoadData")}
           </p>
           <button
             onClick={() => qc.invalidateQueries()}
             className="flex items-center gap-1.5 text-xs text-red-400 hover:text-red-300 transition-colors"
           >
-            <RefreshCw size={12} /> Retry
+            <RefreshCw size={12} /> {t("analytics.retry")}
           </button>
         </div>
       )}
@@ -91,7 +93,7 @@ export function MonitoringPanel() {
             </div>
             <div>
               <h2 className="text-sm font-semibold text-primary">
-                {config.label} Trend
+                {t(`metrics.${config.key}`)} {t("monitoring.trend")}
               </h2>
               <p className="text-xs text-muted">{config.unit}</p>
             </div>
@@ -113,18 +115,18 @@ export function MonitoringPanel() {
               className="h-2 w-4 rounded-sm"
               style={{ background: config.color }}
             />
-            <span>{config.label}</span>
+            <span>{t(`metrics.${config.key}`)}</span>
           </div>
           <div className="flex items-center gap-1.5">
             <span className="h-px w-4 bg-amber-400 opacity-50" />
             <span>
-              Warning threshold ({config.thresholds.warning} {config.unit})
+              {t("monitoring.warningThreshold")} ({config.thresholds.warning} {config.unit})
             </span>
           </div>
           <div className="flex items-center gap-1.5">
             <span className="h-px w-4 bg-red-400 opacity-50" />
             <span>
-              Critical threshold ({config.thresholds.critical} {config.unit})
+              {t("monitoring.criticalThreshold")} ({config.thresholds.critical} {config.unit})
             </span>
           </div>
           <div className="flex items-center gap-1.5">
@@ -132,7 +134,7 @@ export function MonitoringPanel() {
               className="h-px w-4 border-t border-dashed"
               style={{ borderColor: config.color }}
             />
-            <span>Average</span>
+            <span>{t("monitoring.average")}</span>
           </div>
         </div>
       </section>

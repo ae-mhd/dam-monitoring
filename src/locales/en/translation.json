@@ -1,0 +1,174 @@
+{
+  "common": {
+    "logoAlt": "Dam Monitoring System Logo"
+  },
+  "topbar": {
+    "toggleSidebar": "Toggle sidebar",
+    "dataRefresh": "Data Refresh",
+    "every30s": "Every 30s",
+    "live": "Live",
+    "refreshData": "Refresh data",
+    "notifications": "Notifications",
+    "toggleTheme": "Toggle theme",
+    "switchToLightMode": "Switch to light mode",
+    "switchToDarkMode": "Switch to dark mode"
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "analytics": "Analytics",
+    "alerts": "Alerts"
+  },
+  "monitoring": {
+    "liveMonitoring": "Live Monitoring",
+    "liveMonitoringDesc": "Real-time sensor readings and historical trends",
+    "trend": "Trend",
+    "warningThreshold": "Warning threshold",
+    "criticalThreshold": "Critical threshold",
+    "average": "Average"
+  },
+  "location": {
+    "stationLocation": "Station Location",
+    "expandMap": "Expand map",
+    "mapView": "Map View",
+    "mapDesc": "Detailed geographical location of the station.",
+    "locationDetails": "Location Details",
+    "latitude": "Latitude",
+    "longitude": "Longitude",
+    "status": "Status",
+    "lastUpdate": "Last Update",
+    "online": "Online",
+    "offline": "Offline",
+    "coordinates": "Coordinates",
+    "copyCoordinates": "Copy coordinates"
+  },
+  "metrics": {
+    "temperature": "Air Temperature",
+    "water_temperature": "Water Temp",
+    "humidity": "Humidity",
+    "ph": "pH Level",
+    "conductivity": "Conductivity",
+    "turbidity": "Turbidity",
+    "salinity": "Salinity",
+    "o2": "Dissolved O₂",
+    "nh4": "TAN (NH₃/NH₄⁺)",
+    "volume": "Dam Volume",
+    "ammonia": "NH₃ (Ammonia)",
+    "ammonium": "NH₄⁺ (Ammonium)",
+    "up": "Up",
+    "down": "Down",
+    "stable": "Stable"
+  },
+  "timeRanges": {
+    "24h": "24 Hours",
+    "7d": "7 Days",
+    "30d": "30 Days",
+    "6m": "6 Months"
+  },
+  "analytics": {
+    "dataAnalytics": "Data Analytics",
+    "dataAnalyticsDesc": "Deep dive into sensor data trends and historical records",
+    "failedLoadData": "Failed to load sensor data.",
+    "retry": "Retry",
+    "selectMetricsAnalyze": "Select Metrics to Analyze",
+    "selected": "selected",
+    "comparativeAnalytics": "Comparative Analytics",
+    "compareTrends": "Compare trends across multiple metrics",
+    "selectAtLeastOne": "Select at least one metric to view the chart",
+    "range": "Range",
+    "selectMetric": "Select Metric",
+    "timeRange": "Time Range",
+    "historicalData": "Historical Data",
+    "table": "Sensor Readings",
+    "noData": "No data available for this period",
+    "latestReading": "Latest Reading",
+    "avg": "Avg",
+    "min": "Min",
+    "max": "Max",
+    "current": "Current",
+    "minimum": "Minimum",
+    "average": "Average",
+    "maximum": "Maximum",
+    "status": "Status",
+    "trend": "Trend",
+    "connectionError": "Connection Error",
+    "connectionErrorDesc": "Failed to fetch the latest sensor logs. Please check your connection.",
+    "retryConnection": "Retry Connection",
+    "dataLog": "Data Log",
+    "dataLogDesc": "Comprehensive historical records",
+    "columns": "Columns",
+    "showHideColumns": "Show/Hide Columns",
+    "selectAll": "Select All",
+    "clear": "Clear",
+    "syncing": "Syncing...",
+    "timestamp": "Timestamp",
+    "noReadings": "No readings recorded in this timeframe.",
+    "showing": "Showing",
+    "results": "results",
+    "page": "Page"
+  },
+  "alerts": {
+    "systemAlerts": "System Alerts",
+    "systemAlertsDesc": "Current warnings and active thresholds",
+    "monitoringThresholds": "Monitoring Thresholds",
+    "filterByLevel": "Filter by level",
+    "allLevels": "All Levels",
+    "activeRules": "Active Rules",
+    "activeAlerts": "Active Alerts",
+    "checkingAlerts": "Checking for alerts...",
+    "allSystemsNormal": "All Systems Normal",
+    "noActiveAlerts": "No active alerts detected across monitored metrics.",
+    "alertRulesDoc": "Alert Rules Documentation",
+    "upTo": "Up to",
+    "any": "Any",
+    "to": "to",
+    "metric": "Metric",
+    "thresholds": "Thresholds",
+    "criticalSystemAlert": "Critical System Alert",
+    "levels": {
+      "none": "None",
+      "normal": "Normal",
+      "caution": "Caution",
+      "warning": "Warning",
+      "critical": "Critical",
+      "offline": "Offline"
+    },
+    "rules": {
+      "o2": {
+        "critical": "Critical danger (asphyxiation)",
+        "warning": "Biological stress",
+        "caution": "Moderate quality",
+        "normal": "Good quality"
+      },
+      "turbidity": {
+        "critical": "Severe degradation",
+        "warning": "Probable pollution",
+        "caution": "Slight turbidity",
+        "normal": "Clear water"
+      },
+      "chlorophil": {
+        "critical": "Severe eutrophication",
+        "warning": "Algal bloom",
+        "caution": "Beginning of algal proliferation",
+        "normal": "Low algal activity"
+      },
+      "nh4": {
+        "critical": "Severe contamination",
+        "warning": "Significant pollution",
+        "caution": "Slight pollution",
+        "normal": "Clean water"
+      },
+      "ammonia": {
+        "critical": "Critical toxicity",
+        "warning": "Toxic concentration",
+        "caution": "Sensitive species risk",
+        "normal": "Safe level"
+      },
+      "ammonium": {
+        "critical": "Severe contamination",
+        "warning": "Pollution likely",
+        "caution": "Elevated concentration",
+        "normal": "Good quality"
+      }
+    }
+  }
+}

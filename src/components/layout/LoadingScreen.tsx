@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import logo from "@/assets/bg-logo.png";
+import { useTranslation } from "react-i18next";
 
 interface LoadingScreenProps {
   onComplete?: () => void;
 }
 
 export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
+  const { t } = useTranslation();
   const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
@@ -37,7 +39,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
           <div className="absolute inset-0 bg-accent/20 rounded-full blur-2xl group-hover:bg-accent/30 transition-colors logo-pulse" />
           <img
             src={logo}
-            alt="Dam Monitoring System Logo"
+            alt={t("common.logoAlt")}
             className="relative w-32 h-32 md:w-48 md:h-48 object-contain logo-pulse"
           />
         </div>

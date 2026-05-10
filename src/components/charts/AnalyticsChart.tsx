@@ -13,6 +13,7 @@ import type { TooltipPayload } from 'recharts/types/state/tooltipSlice'
 import { Skeleton } from '@/components/ui/Skeleton'
 import { formatValue } from '@/lib/utils'
 import type { MetricConfig, SensorReading } from '@/types'
+import { useTranslation } from 'react-i18next'
 
 interface AnalyticsChartProps {
   configs: MetricConfig[]
@@ -28,6 +29,7 @@ interface CustomTooltipProps {
 }
 
 function CustomTooltip({ active, payload, label, configs }: CustomTooltipProps) {
+  const { t } = useTranslation()
   if (!active || !payload?.length) return null
   return (
     <div className="glass rounded-xl px-4 py-3 text-sm shadow-xl border border-slate-700">
@@ -40,7 +42,7 @@ function CustomTooltip({ active, payload, label, configs }: CustomTooltipProps) 
             <div key={String(entry.dataKey)} className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full" style={{ background: entry.color }} />
-                <span className="text-slate-300">{config.label}</span>
+                <span className="text-slate-300">{t(`metrics.${config.key}`)}</span>
               </div>
               <span className="font-bold" style={{ color: entry.color }}>
                 {formatValue(entry.value as number | null, config.decimals)} {config.unit}
@@ -59,11 +61,12 @@ interface ChartPoint {
 }
 
 export function AnalyticsChart({ configs, data, isLoading }: AnalyticsChartProps) {
+  const { t, i18n } = useTranslation()
   const chartData = useMemo(
     () =>
       data.map((d) => {
         const point: ChartPoint = {
-          time: new Date(d.created_at).toLocaleTimeString([], {
+          time: new Date(d.created_at).toLocaleTimeString(i18n.language, {
             hour: '2-digit',
             minute: '2-digit',
           }),
@@ -73,7 +76,7 @@ export function AnalyticsChart({ configs, data, isLoading }: AnalyticsChartProps
         })
         return point
       }),
-    [data, configs]
+    [data, configs, i18n.language]
   )
 
   if (isLoading) {
@@ -84,7 +87,7 @@ export function AnalyticsChart({ configs, data, isLoading }: AnalyticsChartProps
     return (
       <div className="w-full h-[400px] rounded-xl flex flex-col items-center justify-center text-muted gap-2">
         <span className="text-3xl opacity-30">📊</span>
-        <p className="text-sm">No data available for this period</p>
+        <p className="text-sm">{t('analytics.noData')}</p>
       </div>
     )
   }
@@ -123,6 +126,7 @@ export function AnalyticsChart({ configs, data, isLoading }: AnalyticsChartProps
         <Legend 
           wrapperStyle={{ paddingTop: '20px' }}
           iconType="circle"
+          formatter={(value) => t(`metrics.${value}`)}
         />
 
         {configs.map((config) => (
@@ -130,7 +134,7 @@ export function AnalyticsChart({ configs, data, isLoading }: AnalyticsChartProps
             key={`line-${config.key}`}
             yAxisId={config.key}
             type="monotone"
-            name={config.label}
+            name={config.key}
             dataKey={config.key}
             stroke={config.color}
             strokeWidth={2}

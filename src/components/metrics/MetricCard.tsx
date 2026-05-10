@@ -3,6 +3,7 @@ import { StatusBadge } from "@/components/ui/StatusBadge";
 import { Icon, TrendingUp, TrendingDown, Minus } from "@/components/ui/Icons";
 import { Skeleton } from "@/components/ui/Skeleton";
 import type { MetricConfig, SensorReading } from "@/types";
+import { useTranslation } from "react-i18next";
 
 interface MetricCardProps {
   config: MetricConfig;
@@ -23,6 +24,7 @@ export function MetricCard({
   onClick,
   animationClass,
 }: MetricCardProps) {
+  const { t } = useTranslation();
   const rawValue = reading?.[config.key] ?? null;
   const prevValue = prevReading?.[config.key] ?? null;
   const { level: alertLevel, label: alertLabel } = getAlertInfo(rawValue, config);
@@ -54,7 +56,7 @@ export function MetricCard({
     <button
       id={`metric-card-${config.key}`}
       onClick={onClick}
-      aria-label={`${config.label}: ${formatValue(rawValue as number | null, config.decimals)} ${config.unit}, status ${alertLevel}`}
+      aria-label={`${t(`metrics.${config.key}`)}: ${formatValue(rawValue as number | null, config.decimals)} ${config.unit}, status ${alertLevel}`}
       aria-pressed={isActive}
       className={cn(
         "relative w-full text-left rounded-xl border p-4 transition-all duration-200 group",
@@ -95,11 +97,11 @@ export function MetricCard({
         >
           <Icon name={config.icon} size={18} style={{ color: config.color }} />
         </div>
-        <StatusBadge level={alertLevel} label={alertLabel} />
+        <StatusBadge level={alertLevel} label={t(`alerts.rules.${config.key}.${alertLevel}`, alertLabel)} />
       </div>
 
       {/* Label */}
-      <p className="text-xs text-muted font-medium mb-1">{config.label}</p>
+      <p className="text-xs text-muted font-medium mb-1">{t(`metrics.${config.key}`)}</p>
 
       {/* Value */}
       <div className="flex items-end gap-2">
@@ -117,7 +119,7 @@ export function MetricCard({
       {/* Trend */}
       <div className={cn("flex items-center gap-1 mt-2", trendColor)}>
         <TrendIcon size={12} />
-        <span className="text-xs capitalize">{trend}</span>
+        <span className="text-xs capitalize">{t(`metrics.${trend}`)}</span>
       </div>
     </button>
   );

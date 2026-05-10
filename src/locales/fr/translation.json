@@ -1,0 +1,174 @@
+{
+  "common": {
+    "logoAlt": "Logo du système de surveillance des barrages"
+  },
+  "topbar": {
+    "toggleSidebar": "Basculer la barre latérale",
+    "dataRefresh": "Actualisation",
+    "every30s": "Toutes les 30s",
+    "live": "En direct",
+    "refreshData": "Actualiser les données",
+    "notifications": "Notifications",
+    "toggleTheme": "Basculer le thème",
+    "switchToLightMode": "Passer au mode clair",
+    "switchToDarkMode": "Passer au mode sombre"
+  },
+  "sidebar": {
+    "dashboard": "Tableau de bord",
+    "analytics": "Analyses",
+    "alerts": "Alertes"
+  },
+  "monitoring": {
+    "liveMonitoring": "Surveillance en direct",
+    "liveMonitoringDesc": "Lectures des capteurs en temps réel et tendances historiques",
+    "trend": "Tendance",
+    "warningThreshold": "Seuil d'avertissement",
+    "criticalThreshold": "Seuil critique",
+    "average": "Moyenne"
+  },
+  "location": {
+    "stationLocation": "Emplacement de la station",
+    "expandMap": "Agrandir la carte",
+    "mapView": "Vue de la carte",
+    "mapDesc": "Emplacement géographique détaillé de la station.",
+    "locationDetails": "Détails de l'emplacement",
+    "latitude": "Latitude",
+    "longitude": "Longitude",
+    "status": "Statut",
+    "lastUpdate": "Dernière mise à jour",
+    "online": "En ligne",
+    "offline": "Hors ligne",
+    "coordinates": "Coordonnées",
+    "copyCoordinates": "Copier les coordonnées"
+  },
+  "metrics": {
+    "temperature": "Température de l'air",
+    "water_temperature": "Température de l'eau",
+    "humidity": "Humidité",
+    "ph": "Niveau de pH",
+    "conductivity": "Conductivité",
+    "turbidity": "Turbidité",
+    "salinity": "Salinité",
+    "o2": "O₂ Dissous",
+    "nh4": "TAN (NH₃/NH₄⁺)",
+    "volume": "Volume du barrage",
+    "ammonia": "NH₃ (Ammoniac)",
+    "ammonium": "NH₄⁺ (Ammonium)",
+    "up": "En hausse",
+    "down": "En baisse",
+    "stable": "Stable"
+  },
+  "timeRanges": {
+    "24h": "24 Heures",
+    "7d": "7 Jours",
+    "30d": "30 Jours",
+    "6m": "6 Mois"
+  },
+  "analytics": {
+    "dataAnalytics": "Analyses de données",
+    "dataAnalyticsDesc": "Plongez dans les tendances des données des capteurs et l'historique",
+    "failedLoadData": "Échec du chargement des données.",
+    "retry": "Réessayer",
+    "selectMetricsAnalyze": "Sélectionner les métriques à analyser",
+    "selected": "sélectionné(s)",
+    "comparativeAnalytics": "Analyses comparatives",
+    "compareTrends": "Comparer les tendances entre plusieurs métriques",
+    "selectAtLeastOne": "Sélectionnez au moins une métrique pour voir le graphique",
+    "range": "Plage",
+    "selectMetric": "Sélectionner la métrique",
+    "timeRange": "Plage de temps",
+    "historicalData": "Données historiques",
+    "table": "Relevés des capteurs",
+    "noData": "Aucune donnée disponible pour cette période",
+    "latestReading": "Dernier relevé",
+    "avg": "Moy",
+    "min": "Min",
+    "max": "Max",
+    "current": "Actuel",
+    "minimum": "Minimum",
+    "average": "Moyenne",
+    "maximum": "Maximum",
+    "status": "Statut",
+    "trend": "Tendance",
+    "connectionError": "Erreur de connexion",
+    "connectionErrorDesc": "Échec de la récupération des derniers journaux de capteurs. Veuillez vérifier votre connexion.",
+    "retryConnection": "Réessayer la connexion",
+    "dataLog": "Journal des données",
+    "dataLogDesc": "Enregistrements historiques complets",
+    "columns": "Colonnes",
+    "showHideColumns": "Afficher/Masquer les colonnes",
+    "selectAll": "Tout sélectionner",
+    "clear": "Effacer",
+    "syncing": "Synchronisation...",
+    "timestamp": "Horodatage",
+    "noReadings": "Aucun relevé enregistré dans cette période.",
+    "showing": "Affichage de",
+    "results": "résultats",
+    "page": "Page"
+  },
+  "alerts": {
+    "systemAlerts": "Alertes système",
+    "systemAlertsDesc": "Avertissements actuels et seuils actifs",
+    "monitoringThresholds": "Seuils de surveillance",
+    "filterByLevel": "Filtrer par niveau",
+    "allLevels": "Tous les niveaux",
+    "activeRules": "Règles actives",
+    "activeAlerts": "Alertes actives",
+    "checkingAlerts": "Vérification des alertes...",
+    "allSystemsNormal": "Tous les systèmes sont normaux",
+    "noActiveAlerts": "Aucune alerte active détectée sur les métriques surveillées.",
+    "alertRulesDoc": "Documentation des règles d'alerte",
+    "upTo": "Jusqu'à",
+    "any": "Tout",
+    "to": "à",
+    "metric": "Métrique",
+    "thresholds": "Seuils",
+    "criticalSystemAlert": "Alerte système critique",
+    "levels": {
+      "none": "Aucune",
+      "normal": "Normal",
+      "caution": "Mise en garde",
+      "warning": "Avertissement",
+      "critical": "Critique",
+      "offline": "Hors ligne"
+    },
+    "rules": {
+      "o2": {
+        "critical": "Danger critique (asphyxie)",
+        "warning": "Stress biologique",
+        "caution": "Qualité modérée",
+        "normal": "Bonne qualité"
+      },
+      "turbidity": {
+        "critical": "Dégradation sévère",
+        "warning": "Pollution probable",
+        "caution": "Légère turbidité",
+        "normal": "Eau claire"
+      },
+      "chlorophil": {
+        "critical": "Eutrophisation sévère",
+        "warning": "Prolifération algale",
+        "caution": "Début de prolifération algale",
+        "normal": "Faible activité algale"
+      },
+      "nh4": {
+        "critical": "Contamination sévère",
+        "warning": "Pollution significative",
+        "caution": "Légère pollution",
+        "normal": "Eau propre"
+      },
+      "ammonia": {
+        "critical": "Toxicité critique",
+        "warning": "Concentration toxique",
+        "caution": "Risque pour espèces sensibles",
+        "normal": "Niveau sûr"
+      },
+      "ammonium": {
+        "critical": "Contamination sévère",
+        "warning": "Pollution probable",
+        "caution": "Concentration élevée",
+        "normal": "Bonne qualité"
+      }
+    }
+  }
+}

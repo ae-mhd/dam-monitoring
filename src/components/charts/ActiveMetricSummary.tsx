@@ -1,6 +1,7 @@
 import { formatValue, computeStats } from '@/lib/utils'
 import type { MetricConfig, SensorReading } from '@/types'
 import { TrendingUp, TrendingDown, Minus } from '@/components/ui/Icons'
+import { useTranslation } from 'react-i18next'
 
 interface ActiveMetricSummaryProps {
   config: MetricConfig
@@ -13,14 +14,15 @@ export function ActiveMetricSummary({
   data,
   currentReading,
 }: ActiveMetricSummaryProps) {
+  const { t } = useTranslation()
   const stats = computeStats(data, config.key)
   const current = currentReading?.[config.key] ?? null
 
   const stats_items = [
-    { label: 'Current', value: current, icon: Minus, color: config.color },
-    { label: 'Minimum', value: stats.min, icon: TrendingDown, color: '#34d399' },
-    { label: 'Average', value: stats.avg, icon: Minus, color: '#94a3b8' },
-    { label: 'Maximum', value: stats.max, icon: TrendingUp, color: '#f87171' },
+    { label: t('analytics.current'), value: current, icon: Minus, color: config.color },
+    { label: t('analytics.minimum'), value: stats.min, icon: TrendingDown, color: '#34d399' },
+    { label: t('analytics.average'), value: stats.avg, icon: Minus, color: '#94a3b8' },
+    { label: t('analytics.maximum'), value: stats.max, icon: TrendingUp, color: '#f87171' },
   ]
 
   return (

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Copy, Check, Map } from '@/components/ui/Icons'
 import { Skeleton } from '@/components/ui/Skeleton'
 import type { StationState } from '@/types'
+import { useTranslation } from 'react-i18next'
 
 interface LocationInformationProps {
   state: StationState | null | undefined
@@ -10,6 +11,7 @@ interface LocationInformationProps {
 
 export function LocationInformation({ state, isLoading }: LocationInformationProps) {
   const [copied, setCopied] = useState(false)
+  const { t } = useTranslation()
 
   const handleCopy = async () => {
     if (!state?.coordinates) return
@@ -37,7 +39,7 @@ export function LocationInformation({ state, isLoading }: LocationInformationPro
           <Map size={14} className="text-sky-400" />
         </div>
         <div>
-          <p className="text-xs text-muted uppercase tracking-wider">Station</p>
+          <p className="text-xs text-muted uppercase tracking-wider">{t("location.stationLocation")}</p>
           <p className="text-sm font-semibold text-primary">{state.name}</p>
         </div>
       </div>
@@ -50,15 +52,15 @@ export function LocationInformation({ state, isLoading }: LocationInformationPro
 
       <div className="bg-card rounded-lg p-2.5 flex items-center justify-between gap-2">
         <div className="min-w-0">
-          <p className="text-xs text-muted mb-0.5">Coordinates</p>
+          <p className="text-xs text-muted mb-0.5">{t("location.coordinates")}</p>
           <p className="text-xs font-mono text-secondary truncate">{state.coordinates}</p>
         </div>
         <button
           id="copy-coords-btn"
           onClick={handleCopy}
           className="shrink-0 p-1.5 rounded-lg hover:bg-card-hover text-muted hover:text-primary transition-colors"
-          title="Copy coordinates"
-          aria-label="Copy coordinates to clipboard"
+          title={t("location.copyCoordinates")}
+          aria-label={t("location.copyCoordinates")}
         >
           {copied ? (
             <Check size={14} className="text-emerald-400" />

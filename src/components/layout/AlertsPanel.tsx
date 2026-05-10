@@ -12,6 +12,7 @@ import {
   Icon,
 } from "@/components/ui/Icons";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 const STAGGER = Array.from({ length: 20 }, (_, i) => `stagger-${i + 1}`);
 
@@ -27,6 +28,7 @@ const LEVEL_COLORS = {
 export function AlertsPanel() {
   const { data: reading, isLoading } = useLatestSensorReading();
   const { setActiveMetric } = useDashboardStore();
+  const { t } = useTranslation();
 
   const handleMetricClick = (key: MetricKey) => {
     setActiveMetric(key);
@@ -45,8 +47,8 @@ export function AlertsPanel() {
       {/* Header */}
       <PageHeader
         icon={ShieldAlert}
-        title="System Alerts"
-        description="Current warnings and active thresholds"
+        title={t("alerts.systemAlerts")}
+        description={t("alerts.systemAlertsDesc")}
         iconClassName="bg-red-500/10 border-red-500/20 text-red-400"
       />
 
@@ -54,13 +56,13 @@ export function AlertsPanel() {
       <section className="flex flex-col gap-4" aria-label="Active Alerts">
         <h2 className="text-sm font-semibold uppercase tracking-wider text-muted flex items-center gap-2">
           <AlertCircle size={16} />
-          Active Alerts ({alertMetrics.length})
+          {t("alerts.activeAlerts")} ({alertMetrics.length})
         </h2>
 
         {isLoading ? (
           <div className="flex items-center justify-center p-8 glass rounded-xl">
             <span className="text-muted animate-pulse">
-              Checking for alerts...
+              {t("alerts.checkingAlerts")}
             </span>
           </div>
         ) : alertMetrics.length > 0 ? (
@@ -83,9 +85,9 @@ export function AlertsPanel() {
               <ShieldAlert className="text-emerald-400" size={32} />
             </div>
             <div>
-              <p className="text-primary font-medium">All Systems Normal</p>
+              <p className="text-primary font-medium">{t("alerts.allSystemsNormal")}</p>
               <p className="text-sm text-muted">
-                No active alerts detected across monitored metrics.
+                {t("alerts.noActiveAlerts")}
               </p>
             </div>
           </div>
@@ -99,7 +101,7 @@ export function AlertsPanel() {
       >
         <h2 className="text-sm font-semibold uppercase tracking-wider text-muted flex items-center gap-2">
           <BookOpen size={16} />
-          Alert Rules Documentation
+          {t("alerts.alertRulesDoc")}
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
@@ -119,7 +121,7 @@ export function AlertsPanel() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-primary">
-                      {config.label}
+                      {t(`metrics.${config.key}`)}
                     </h3>
                     <p className="text-xs text-muted font-mono">
                       {config.key === "nh4" ? "TAN" : config.key} ({config.unit}
@@ -136,12 +138,12 @@ export function AlertsPanel() {
                     >
                       <div className="flex flex-col gap-1">
                         <span className="text-primary font-medium">
-                          {rule.label}
+                          {t(`alerts.rules.${config.key}.${rule.level}`)}
                         </span>
                         <span className="text-xs text-muted">
                           {idx === 0
-                            ? `Up to ${rule.max === Infinity ? "Any" : rule.max} ${config.unit}`
-                            : `> ${rules[idx - 1].max} to ${rule.max === Infinity ? "∞" : rule.max} ${config.unit}`}
+                            ? `${t("alerts.upTo")} ${rule.max === Infinity ? t("alerts.any") : rule.max} ${config.unit}`
+                            : `> ${rules[idx - 1].max} ${t("alerts.to")} ${rule.max === Infinity ? "∞" : rule.max} ${config.unit}`}
                         </span>
                       </div>
                       <span
@@ -150,7 +152,7 @@ export function AlertsPanel() {
                           LEVEL_COLORS[rule.level],
                         )}
                       >
-                        {rule.level}
+                        {t(`alerts.levels.${rule.level}`)}
                       </span>
                     </div>
                   ))}

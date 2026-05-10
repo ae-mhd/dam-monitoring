@@ -11,10 +11,12 @@ import { METRIC_MAP } from "@/lib/constants";
 import { Icon, AlertCircle, RefreshCw, BarChart2 } from "@/components/ui/Icons";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 
 export function AnalyticsPanel() {
   const { analyticsMetrics } = useDashboardStore();
   const qc = useQueryClient();
+  const { t } = useTranslation();
 
   const {
     data: latestReading,
@@ -37,8 +39,8 @@ export function AnalyticsPanel() {
     <div className="flex flex-col gap-5 min-h-0">
       <PageHeader
         icon={BarChart2}
-        title="Data Analytics"
-        description="Deep dive into sensor data trends and historical records"
+        title={t("analytics.dataAnalytics")}
+        description={t("analytics.dataAnalyticsDesc")}
         iconClassName="bg-indigo-500/10 border-indigo-500/20 text-indigo-400"
       />
 
@@ -47,13 +49,13 @@ export function AnalyticsPanel() {
         <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-red-500/10 border border-red-500/30 animate-fade-in">
           <AlertCircle size={16} className="text-red-400 shrink-0" />
           <p className="text-sm text-red-300 flex-1">
-            Failed to load sensor data.
+            {t("analytics.failedLoadData")}
           </p>
           <button
             onClick={() => qc.invalidateQueries()}
             className="flex items-center gap-1.5 text-xs text-red-400 hover:text-red-300 transition-colors"
           >
-            <RefreshCw size={12} /> Retry
+            <RefreshCw size={12} /> {t("analytics.retry")}
           </button>
         </div>
       )}
@@ -61,9 +63,9 @@ export function AnalyticsPanel() {
       {/* Metric Cards - Multi Selectable */}
       <section aria-label="Sensor Metrics Selection">
         <div className="mb-3 flex items-center justify-between">
-          <h2 className="text-sm font-medium text-slate-300">Select Metrics to Analyze</h2>
+          <h2 className="text-sm font-medium text-slate-300">{t("analytics.selectMetricsAnalyze")}</h2>
           <span className="text-xs text-muted bg-card px-2 py-1 rounded-md">
-            {analyticsMetrics.length} selected
+            {analyticsMetrics.length} {t("analytics.selected")}
           </span>
         </div>
         <AnalyticsMetricsGrid reading={latestReading} isLoading={loadingLatest} />
@@ -86,9 +88,9 @@ export function AnalyticsPanel() {
             </div>
             <div>
               <h2 className="text-sm font-semibold text-primary">
-                Comparative Analytics
+                {t("analytics.comparativeAnalytics")}
               </h2>
-              <p className="text-xs text-muted">Compare trends across multiple metrics</p>
+              <p className="text-xs text-muted">{t("analytics.compareTrends")}</p>
             </div>
           </div>
           <ChartToolbar />
@@ -104,7 +106,7 @@ export function AnalyticsPanel() {
         ) : (
           <div className="w-full h-[400px] rounded-xl flex flex-col items-center justify-center text-muted gap-2 bg-slate-900/20 border border-slate-800 border-dashed">
             <span className="text-3xl opacity-30">📊</span>
-            <p className="text-sm">Select at least one metric to view the chart</p>
+            <p className="text-sm">{t("analytics.selectAtLeastOne")}</p>
           </div>
         )}
       </section>

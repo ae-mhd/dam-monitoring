@@ -2,14 +2,16 @@ import { cn } from '@/lib/utils'
 import { useDashboardStore } from '@/store/dashboardStore'
 import { TIME_RANGES } from '@/lib/constants'
 import type { TimeRange } from '@/types'
+import { useTranslation } from 'react-i18next'
 
 export function ChartToolbar() {
+  const { t } = useTranslation()
   const { timeRange, setTimeRange } = useDashboardStore()
 
   return (
     <div className="flex items-center gap-2 flex-wrap">
-      <span className="text-xs text-muted font-medium mr-1">Range:</span>
-      {TIME_RANGES.map(({ value, label }) => (
+      <span className="text-xs text-muted font-medium mr-1">{t('analytics.range')}:</span>
+      {TIME_RANGES.map(({ value }) => (
         <button
           key={value}
           id={`time-range-${value}`}
@@ -22,7 +24,7 @@ export function ChartToolbar() {
           )}
           aria-pressed={timeRange === value}
         >
-          {label}
+          {t(`timeRanges.${value}`)}
         </button>
       ))}
     </div>

@@ -13,6 +13,7 @@ import {
   DialogDescription,
 } from "@/components/ui/Dialog";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 // Fix default marker icon paths broken by Vite
 delete (L.Icon.Default.prototype as unknown as Record<string, unknown>)
@@ -35,6 +36,7 @@ export function AlgeriaMiniMap({
   className,
   isFull = false,
 }: AlgeriaMiniMapProps) {
+  const { t } = useTranslation();
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
   const markerRef = useRef<L.Marker | null>(null);
@@ -127,17 +129,17 @@ export function AlgeriaMiniMap({
           <DialogTrigger asChild>
             <button
               className="absolute top-3 right-3 z-1000 p-2 bg-slate-900/60 backdrop-blur-md border border-slate-700/50 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition-all opacity-0 group-hover:opacity-100 shadow-xl"
-              title="Expand map"
+              title={t("location.expandMap")}
             >
               <Maximize2 size={16} />
             </button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[90vw] md:max-w-[80vw] lg:max-w-[70vw] h-[80vh] p-0 border-none bg-transparent shadow-2xl">
             <DialogTitle className="sr-only">
-              Map View - {state?.name}
+              {t("location.mapView")} - {state?.name}
             </DialogTitle>
             <DialogDescription className="sr-only">
-              Detailed geographical location of the station.
+              {t("location.mapDesc")}
             </DialogDescription>
             <AlgeriaMiniMap
               state={state}

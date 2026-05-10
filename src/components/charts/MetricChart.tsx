@@ -15,6 +15,7 @@ import type { TooltipPayload } from 'recharts/types/state/tooltipSlice'
 import { Skeleton } from '@/components/ui/Skeleton'
 import { formatValue, computeStats } from '@/lib/utils'
 import type { MetricConfig, SensorReading } from '@/types'
+import { useTranslation } from 'react-i18next'
 
 interface MetricChartProps {
   config: MetricConfig
@@ -43,16 +44,17 @@ function CustomTooltip({ active, payload, label, config }: CustomTooltipProps) {
 }
 
 export function MetricChart({ config, data, isLoading }: MetricChartProps) {
+  const { t, i18n } = useTranslation()
   const chartData = useMemo(
     () =>
       data.map((d) => ({
-        time: new Date(d.created_at).toLocaleTimeString([], {
+        time: new Date(d.created_at).toLocaleTimeString(i18n.language, {
           hour: '2-digit',
           minute: '2-digit',
         }),
         value: d[config.key] ?? null,
       })),
-    [data, config.key]
+    [data, config.key, i18n.language]
   )
 
   const stats = computeStats(data, config.key)
@@ -65,7 +67,7 @@ export function MetricChart({ config, data, isLoading }: MetricChartProps) {
     return (
       <div className="w-full h-64 rounded-xl flex flex-col items-center justify-center text-muted gap-2">
         <span className="text-3xl opacity-30">📊</span>
-        <p className="text-sm">No data available for this period</p>
+        <p className="text-sm">{t('analytics.noData')}</p>
       </div>
     )
   }
@@ -112,7 +114,7 @@ export function MetricChart({ config, data, isLoading }: MetricChartProps) {
         strokeDasharray="4 4"
         strokeOpacity={0.4}
         label={{
-          value: `avg ${formatValue(stats.avg, config.decimals)}`,
+          value: `${t('analytics.avg')} ${formatValue(stats.avg, config.decimals)}`,
           position: 'insideTopRight',
           fontSize: 9,
           fill: config.color,

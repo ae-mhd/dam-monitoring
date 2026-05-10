@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { useDashboardStore } from "@/store/dashboardStore";
+import { useTranslation } from "react-i18next";
 import {
   Home,
   BarChart2,
@@ -9,12 +10,13 @@ import {
 } from "@/components/ui/Icons";
 
 const NAV_ITEMS = [
-  { id: "dashboard", label: "Dashboard", icon: Home },
-  { id: "analytics", label: "Analytics", icon: BarChart2 },
-  { id: "alerts", label: "Alerts", icon: Bell },
+  { id: "dashboard", icon: Home },
+  { id: "analytics", icon: BarChart2 },
+  { id: "alerts", icon: Bell },
 ];
 
 export function Sidebar() {
+  const { t } = useTranslation();
   const { sidebarCollapsed, toggleSidebar, activeView, setActiveView } = useDashboardStore();
 
   return (
@@ -42,7 +44,7 @@ export function Sidebar() {
         {/* Nav */}
         <nav className="flex-1 py-4 overflow-hidden">
           <ul className="space-y-1 px-2">
-            {NAV_ITEMS.map(({ id, label, icon: Icon }) => (
+            {NAV_ITEMS.map(({ id, icon: Icon }) => (
               <li key={id}>
                 <button
                   id={`nav-${id}`}
@@ -54,7 +56,7 @@ export function Sidebar() {
                       ? "bg-sky-500/20 text-sky-400 border border-sky-500/30 shadow-[0_0_15px_rgba(14,165,233,0.1)]"
                       : "text-secondary hover:bg-card-hover hover:text-primary hover:translate-x-1 active:scale-[0.98]",
                   )}
-                  aria-label={label}
+                  aria-label={t(`sidebar.${id}`)}
                 >
                   <Icon size={18} className="shrink-0" />
                   <span
@@ -64,7 +66,7 @@ export function Sidebar() {
                         "md:opacity-0 md:w-0 md:overflow-hidden",
                     )}
                   >
-                    {label}
+                    {t(`sidebar.${id}`)}
                   </span>
                 </button>
               </li>
