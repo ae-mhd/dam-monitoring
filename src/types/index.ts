@@ -65,7 +65,7 @@ export interface PaginatedResponse<T> {
 
 // ── Metric Config ─────────────────────────────────────────────────────────────
 
-export type AlertLevel = 'normal' | 'warning' | 'critical' | 'offline'
+export type AlertLevel = 'none' | 'normal' | 'caution' | 'warning' | 'critical' | 'offline'
 export type TimeRange = '24h' | '7d' | '30d' | '6m'
 export type MetricKey = keyof Pick<
   SensorReading,
@@ -79,6 +79,7 @@ export type MetricKey = keyof Pick<
   | 'o2'
   | 'nh4'
   | 'volume'
+  | 'chlorophil'
 >
 
 export interface MetricThreshold {

@@ -11,6 +11,7 @@ import {
   Tooltip,
   ReferenceLine,
 } from 'recharts'
+import type { TooltipPayload } from 'recharts/types/state/tooltipSlice'
 import { Skeleton } from '@/components/ui/Skeleton'
 import { formatValue, computeStats } from '@/lib/utils'
 import type { MetricConfig, SensorReading } from '@/types'
@@ -23,8 +24,8 @@ interface MetricChartProps {
 
 interface CustomTooltipProps {
   active?: boolean
-  payload?: any
-  label?: string
+  payload?: TooltipPayload
+  label?: string | number
   config: MetricConfig
 }
 

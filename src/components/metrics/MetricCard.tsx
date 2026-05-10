@@ -1,17 +1,17 @@
-import { cn, formatValue, getAlertLevel, getTrend } from '@/lib/utils'
-import { StatusBadge } from '@/components/ui/StatusBadge'
-import { Icon, TrendingUp, TrendingDown, Minus } from '@/components/ui/Icons'
-import { Skeleton } from '@/components/ui/Skeleton'
-import type { MetricConfig, SensorReading } from '@/types'
+import { cn, formatValue, getAlertInfo, getTrend } from "@/lib/utils";
+import { StatusBadge } from "@/components/ui/StatusBadge";
+import { Icon, TrendingUp, TrendingDown, Minus } from "@/components/ui/Icons";
+import { Skeleton } from "@/components/ui/Skeleton";
+import type { MetricConfig, SensorReading } from "@/types";
 
 interface MetricCardProps {
-  config: MetricConfig
-  reading: SensorReading | null | undefined
-  prevReading?: SensorReading | null
-  isActive: boolean
-  isLoading: boolean
-  onClick: () => void
-  animationClass?: string
+  config: MetricConfig;
+  reading: SensorReading | null | undefined;
+  prevReading?: SensorReading | null;
+  isActive: boolean;
+  isLoading: boolean;
+  onClick: () => void;
+  animationClass?: string;
 }
 
 export function MetricCard({
@@ -23,15 +23,19 @@ export function MetricCard({
   onClick,
   animationClass,
 }: MetricCardProps) {
-  const rawValue = reading?.[config.key] ?? null
-  const prevValue = prevReading?.[config.key] ?? null
-  const alertLevel = getAlertLevel(rawValue, config)
-  const trend = getTrend(rawValue as number | null, prevValue as number | null)
+  const rawValue = reading?.[config.key] ?? null;
+  const prevValue = prevReading?.[config.key] ?? null;
+  const { level: alertLevel, label: alertLabel } = getAlertInfo(rawValue, config);
+  const trend = getTrend(rawValue as number | null, prevValue as number | null);
 
   const TrendIcon =
-    trend === 'up' ? TrendingUp : trend === 'down' ? TrendingDown : Minus
+    trend === "up" ? TrendingUp : trend === "down" ? TrendingDown : Minus;
   const trendColor =
-    trend === 'up' ? 'text-red-400' : trend === 'down' ? 'text-emerald-400' : 'text-muted'
+    trend === "up"
+      ? "text-red-400"
+      : trend === "down"
+        ? "text-emerald-400"
+        : "text-muted";
 
   if (isLoading) {
     return (
@@ -43,7 +47,7 @@ export function MetricCard({
         <Skeleton className="h-4 w-24" />
         <Skeleton className="h-7 w-20" />
       </div>
-    )
+    );
   }
 
   return (
@@ -53,20 +57,21 @@ export function MetricCard({
       aria-label={`${config.label}: ${formatValue(rawValue as number | null, config.decimals)} ${config.unit}, status ${alertLevel}`}
       aria-pressed={isActive}
       className={cn(
-        'relative w-full text-left rounded-xl border p-4 transition-all duration-200 group',
-        'focus:outline-none focus:ring-2 focus:ring-sky-500/50',
+        "relative w-full text-left rounded-xl border p-4 transition-all duration-200 group",
+        "focus:outline-none focus:ring-2 focus:ring-sky-500/50",
         animationClass,
         isActive
-          ? 'border-transparent scale-[1.02] shadow-lg'
-          : 'border-card bg-card hover:bg-card-hover hover:border-slate-600 hover:scale-[1.01]',
-        alertLevel === 'critical' && !isActive && 'border-red-500/40',
-        alertLevel === 'warning' && !isActive && 'border-amber-500/30',
+          ? "border-transparent scale-[1.02] shadow-lg"
+          : "border-card bg-card hover:bg-card-hover hover:border-slate-600 hover:scale-[1.01]",
+        alertLevel === "critical" && !isActive && "border-red-500/40",
+        alertLevel === "warning"  && !isActive && "border-orange-500/30",
+        alertLevel === "caution"  && !isActive && "border-yellow-500/25",
       )}
       style={
         isActive
           ? {
-              background: `linear-gradient(135deg, ${config.gradientFrom.replace('40', '25')}, ${config.gradientTo})`,
-              borderColor: config.color + '60',
+              background: `linear-gradient(135deg, ${config.gradientFrom.replace("40", "25")}, ${config.gradientTo})`,
+              borderColor: config.color + "60",
               boxShadow: `0 0 20px ${config.color}20`,
             }
           : undefined
@@ -85,16 +90,12 @@ export function MetricCard({
         <div
           className="p-2 rounded-lg transition-colors"
           style={{
-            background: isActive ? config.color + '30' : config.gradientFrom,
+            background: isActive ? config.color + "30" : config.gradientFrom,
           }}
         >
-          <Icon
-            name={config.icon}
-            size={18}
-            style={{ color: config.color }}
-          />
+          <Icon name={config.icon} size={18} style={{ color: config.color }} />
         </div>
-        <StatusBadge level={alertLevel} />
+        <StatusBadge level={alertLevel} label={alertLabel} />
       </div>
 
       {/* Label */}
@@ -108,14 +109,16 @@ export function MetricCard({
         >
           {formatValue(rawValue as number | null, config.decimals)}
         </span>
-        <span className="text-xs text-muted mb-1 font-medium">{config.unit}</span>
+        <span className="text-xs text-muted mb-1 font-medium">
+          {config.unit}
+        </span>
       </div>
 
       {/* Trend */}
-      <div className={cn('flex items-center gap-1 mt-2', trendColor)}>
+      <div className={cn("flex items-center gap-1 mt-2", trendColor)}>
         <TrendIcon size={12} />
         <span className="text-xs capitalize">{trend}</span>
       </div>
     </button>
-  )
+  );
 }

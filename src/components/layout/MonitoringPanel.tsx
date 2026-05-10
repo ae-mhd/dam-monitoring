@@ -1,31 +1,34 @@
-import { MetricsGrid } from '@/components/metrics/MetricsGrid'
-import { ChartToolbar } from '@/components/charts/ChartToolbar'
-import { MetricChart } from '@/components/charts/MetricChart'
-import { ActiveMetricSummary } from '@/components/charts/ActiveMetricSummary'
-import { useLatestSensorReading, useHistoricalReadings } from '@/hooks/useSensorData'
-import { useDashboardStore } from '@/store/dashboardStore'
-import { METRIC_MAP } from '@/lib/constants'
-import { Icon, AlertCircle, RefreshCw } from '@/components/ui/Icons'
-import { useQueryClient } from '@tanstack/react-query'
+import { MetricsGrid } from "@/components/metrics/MetricsGrid";
+import { ChartToolbar } from "@/components/charts/ChartToolbar";
+import { MetricChart } from "@/components/charts/MetricChart";
+import { ActiveMetricSummary } from "@/components/charts/ActiveMetricSummary";
+import {
+  useLatestSensorReading,
+  useHistoricalReadings,
+} from "@/hooks/useSensorData";
+import { useDashboardStore } from "@/store/dashboardStore";
+import { METRIC_MAP } from "@/lib/constants";
+import { Icon, AlertCircle, RefreshCw } from "@/components/ui/Icons";
+import { useQueryClient } from "@tanstack/react-query";
 
 export function MonitoringPanel() {
-  const { activeMetric } = useDashboardStore()
-  const config = METRIC_MAP[activeMetric]
-  const qc = useQueryClient()
+  const { activeMetric } = useDashboardStore();
+  const config = METRIC_MAP[activeMetric];
+  const qc = useQueryClient();
 
   const {
     data: latestReading,
     isLoading: loadingLatest,
     isError: errorLatest,
-  } = useLatestSensorReading()
+  } = useLatestSensorReading();
 
   const {
     data: historicalData = [],
     isLoading: loadingHistory,
     isError: errorHistory,
-  } = useHistoricalReadings()
+  } = useHistoricalReadings();
 
-  const hasError = errorLatest || errorHistory
+  const hasError = errorLatest || errorHistory;
 
   return (
     <div className="flex flex-col gap-5 min-h-0">
@@ -33,7 +36,9 @@ export function MonitoringPanel() {
       {hasError && (
         <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-red-500/10 border border-red-500/30 animate-fade-in">
           <AlertCircle size={16} className="text-red-400 shrink-0" />
-          <p className="text-sm text-red-300 flex-1">Failed to load sensor data.</p>
+          <p className="text-sm text-red-300 flex-1">
+            Failed to load sensor data.
+          </p>
           <button
             onClick={() => qc.invalidateQueries()}
             className="flex items-center gap-1.5 text-xs text-red-400 hover:text-red-300 transition-colors"
@@ -71,7 +76,11 @@ export function MonitoringPanel() {
               className="p-1.5 rounded-lg"
               style={{ background: config.gradientFrom }}
             >
-              <Icon name={config.icon} size={16} style={{ color: config.color }} />
+              <Icon
+                name={config.icon}
+                size={16}
+                style={{ color: config.color }}
+              />
             </div>
             <div>
               <h2 className="text-sm font-semibold text-primary">
@@ -93,23 +102,33 @@ export function MonitoringPanel() {
         {/* Legend */}
         <div className="flex flex-wrap items-center gap-4 text-xs text-muted pt-1 border-t border-card">
           <div className="flex items-center gap-1.5">
-            <span className="h-2 w-4 rounded-sm" style={{ background: config.color }} />
+            <span
+              className="h-2 w-4 rounded-sm"
+              style={{ background: config.color }}
+            />
             <span>{config.label}</span>
           </div>
           <div className="flex items-center gap-1.5">
             <span className="h-px w-4 bg-amber-400 opacity-50" />
-            <span>Warning threshold ({config.thresholds.warning} {config.unit})</span>
+            <span>
+              Warning threshold ({config.thresholds.warning} {config.unit})
+            </span>
           </div>
           <div className="flex items-center gap-1.5">
             <span className="h-px w-4 bg-red-400 opacity-50" />
-            <span>Critical threshold ({config.thresholds.critical} {config.unit})</span>
+            <span>
+              Critical threshold ({config.thresholds.critical} {config.unit})
+            </span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="h-px w-4 border-t border-dashed" style={{ borderColor: config.color }} />
+            <span
+              className="h-px w-4 border-t border-dashed"
+              style={{ borderColor: config.color }}
+            />
             <span>Average</span>
           </div>
         </div>
       </section>
     </div>
-  )
+  );
 }
