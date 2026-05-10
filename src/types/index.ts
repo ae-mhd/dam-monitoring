@@ -27,6 +27,8 @@ export interface SensorReading {
   potassium: number | null;
   rainfall: number | null;
   chlorophil?: number | null;
+  ammonia?: number | null;
+  ammonium?: number | null;
   deleted_at: string | null;
   created_at: string;
   updated_at: string;
@@ -86,6 +88,8 @@ export type MetricKey = keyof Pick<
   | "nh4"
   | "volume"
   | "chlorophil"
+  | "ammonia"
+  | "ammonium"
 >;
 
 export interface MetricThreshold {

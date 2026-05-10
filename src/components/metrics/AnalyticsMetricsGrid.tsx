@@ -8,8 +8,7 @@ interface AnalyticsMetricsGridProps {
   isLoading: boolean
 }
 
-const STAGGER = ['stagger-1','stagger-2','stagger-3','stagger-4',
-                  'stagger-5','stagger-6','stagger-7','stagger-8']
+const STAGGER = Array.from({ length: 20 }, (_, i) => `stagger-${i + 1}`)
 
 export function AnalyticsMetricsGrid({ reading, isLoading }: AnalyticsMetricsGridProps) {
   const { analyticsMetrics, toggleAnalyticsMetric } = useDashboardStore()
