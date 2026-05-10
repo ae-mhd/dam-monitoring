@@ -8,7 +8,8 @@ import {
 } from "@/hooks/useSensorData";
 import { useDashboardStore } from "@/store/dashboardStore";
 import { METRIC_MAP } from "@/lib/constants";
-import { Icon, AlertCircle, RefreshCw } from "@/components/ui/Icons";
+import { Icon, AlertCircle, RefreshCw, BarChart2 } from "@/components/ui/Icons";
+import { PageHeader } from "@/components/layout/PageHeader";
 import { useQueryClient } from "@tanstack/react-query";
 
 export function AnalyticsPanel() {
@@ -34,6 +35,13 @@ export function AnalyticsPanel() {
 
   return (
     <div className="flex flex-col gap-5 min-h-0">
+      <PageHeader
+        icon={BarChart2}
+        title="Data Analytics"
+        description="Deep dive into sensor data trends and historical records"
+        iconClassName="bg-indigo-500/10 border-indigo-500/20 text-indigo-400"
+      />
+
       {/* Error Banner */}
       {hasError && (
         <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-red-500/10 border border-red-500/30 animate-fade-in">

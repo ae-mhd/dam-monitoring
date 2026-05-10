@@ -2,6 +2,7 @@ import { useLatestSensorReading } from "@/hooks/useSensorData";
 import { useDashboardStore } from "@/store/dashboardStore";
 import { METRICS } from "@/lib/constants";
 import { MetricCard } from "@/components/metrics/MetricCard";
+import { PageHeader } from "@/components/layout/PageHeader";
 import { getAlertLevel, ALERT_RULES } from "@/lib/utils";
 import type { MetricKey } from "@/types";
 import { AlertCircle, BookOpen, ShieldAlert, Icon } from "@/components/ui/Icons";
@@ -38,15 +39,12 @@ export function AlertsPanel() {
   return (
     <div className="flex flex-col gap-6 min-h-0 h-full overflow-y-auto pb-8 pr-2">
       {/* Header */}
-      <div className="flex items-center gap-3 mb-2 animate-fade-in">
-        <div className="p-2.5 rounded-xl bg-red-500/10 border border-red-500/20">
-          <ShieldAlert className="text-red-400" size={24} />
-        </div>
-        <div>
-          <h1 className="text-xl font-bold text-primary tracking-tight">System Alerts</h1>
-          <p className="text-sm text-muted">Current warnings and active thresholds</p>
-        </div>
-      </div>
+      <PageHeader
+        icon={ShieldAlert}
+        title="System Alerts"
+        description="Current warnings and active thresholds"
+        iconClassName="bg-red-500/10 border-red-500/20 text-red-400"
+      />
 
       {/* Active Alerts Section */}
       <section className="flex flex-col gap-4" aria-label="Active Alerts">

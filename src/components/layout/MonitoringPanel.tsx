@@ -8,7 +8,8 @@ import {
 } from "@/hooks/useSensorData";
 import { useDashboardStore } from "@/store/dashboardStore";
 import { METRIC_MAP } from "@/lib/constants";
-import { Icon, AlertCircle, RefreshCw } from "@/components/ui/Icons";
+import { Icon, AlertCircle, RefreshCw, Activity } from "@/components/ui/Icons";
+import { PageHeader } from "@/components/layout/PageHeader";
 import { useQueryClient } from "@tanstack/react-query";
 
 export function MonitoringPanel() {
@@ -32,6 +33,12 @@ export function MonitoringPanel() {
 
   return (
     <div className="flex flex-col gap-5 min-h-0">
+      <PageHeader
+        icon={Activity}
+        title="Live Monitoring"
+        description="Real-time sensor readings and historical trends"
+      />
+
       {/* Error Banner */}
       {hasError && (
         <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-red-500/10 border border-red-500/30 animate-fade-in">
