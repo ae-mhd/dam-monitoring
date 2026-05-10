@@ -28,15 +28,10 @@ export function AlgeriaMiniMap({ state }: AlgeriaMiniMapProps) {
     const map = L.map(mapRef.current, {
       center: [28.0339, 1.6596],
       zoom: 5,
-      zoomControl: false,
       attributionControl: false,
-      dragging: false,
-      scrollWheelZoom: false,
-      doubleClickZoom: false,
-      touchZoom: false,
     })
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
     }).addTo(map)
 
