@@ -176,9 +176,9 @@ export function enrichSensorReading(
   }
 
   // Salinity calculation: Salinity(mg/L) ≈ 0.64 × Conductivity(μS/cm)
-  // if (reading.conductivity != null) {
-  //   reading.salinity = 0.64 * reading.conductivity;
-  // }
+  if (reading.conductivity != null) {
+    reading.salinity = 0.64 * reading.conductivity;
+  }
 
   return reading;
 }
