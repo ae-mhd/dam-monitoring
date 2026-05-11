@@ -104,7 +104,6 @@ export type MetricKey = keyof Pick<
   | "salinity"
   | "o2"
   | "nh4"
-  | "volume"
   | "chlorophil"
   | "ammonia"
   | "ammonium"

@@ -38,6 +38,8 @@ import {
   Trash2,
   Loader2,
   Plus,
+  Sprout,
+  Download,
   type LucideProps,
 } from "lucide-react";
 
@@ -75,6 +77,8 @@ const iconMap: Record<string, React.FC<LucideProps>> = {
   "chevron-left": ChevronLeft,
   "chevron-right": ChevronRight,
   columns: Columns,
+  sprout: Sprout,
+  download: Download,
 };
 
 interface IconProps extends LucideProps {
@@ -126,4 +130,5 @@ export {
   Trash2,
   Loader2,
   Plus,
+  Download,
 };

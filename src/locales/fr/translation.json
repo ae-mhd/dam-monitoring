@@ -51,9 +51,9 @@
     "salinity": "Salinité",
     "o2": "O₂ Dissous",
     "nh4": "TAN (NH₃/NH₄⁺)",
-    "volume": "Volume du barrage",
     "ammonia": "NH₃ (Ammoniac)",
     "ammonium": "NH₄⁺ (Ammonium)",
+    "chlorophil": "Chlorophylle",
     "up": "En hausse",
     "down": "En baisse",
     "stable": "Stable"

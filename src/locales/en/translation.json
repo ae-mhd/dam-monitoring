@@ -51,9 +51,9 @@
     "salinity": "Salinity",
     "o2": "Dissolved O₂",
     "nh4": "TAN (NH₃/NH₄⁺)",
-    "volume": "Dam Volume",
     "ammonia": "NH₃ (Ammonia)",
     "ammonium": "NH₄⁺ (Ammonium)",
+    "chlorophil": "Chlorophyll",
     "up": "Up",
     "down": "Down",
     "stable": "Stable"

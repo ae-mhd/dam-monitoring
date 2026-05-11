@@ -77,29 +77,18 @@ export const METRICS: MetricConfig[] = [
     decimals: 2,
   },
   {
-    key: "nh4",
-    label: "TAN (NH₃/NH₄⁺)",
-    unit: "mg/L",
-    icon: "beaker",
-    color: "#fb923c",
-    gradientFrom: "#fb923c40",
-    gradientTo: "#fb923c05",
+    key: "chlorophil",
+    label: "Chlorophyll-a",
+    unit: "µg/L",
+    icon: "sprout",
+    color: "#10b981",
+    gradientFrom: "#10b98140",
+    gradientTo: "#10b98105",
     chartType: "line",
-    thresholds: { warning: 2, critical: 5 },
-    decimals: 2,
+    thresholds: { warning: 20, critical: 50 },
+    decimals: 1,
   },
-  {
-    key: "volume",
-    label: "Dam Volume",
-    unit: "%",
-    icon: "database",
-    color: "#2dd4bf",
-    gradientFrom: "#2dd4bf40",
-    gradientTo: "#2dd4bf05",
-    chartType: "area",
-    thresholds: { warning: 90, critical: 98 },
-    decimals: 0,
-  },
+
   {
     key: "ammonia",
     label: "NH₃ (Ammonia)",
@@ -124,6 +113,18 @@ export const METRICS: MetricConfig[] = [
     thresholds: { warning: 1, critical: 2 },
     decimals: 2,
   },
+  {
+    key: "nh4",
+    label: "TAN (NH₃/NH₄⁺)",
+    unit: "mg/L",
+    icon: "beaker",
+    color: "#fb923c",
+    gradientFrom: "#fb923c40",
+    gradientTo: "#fb923c05",
+    chartType: "line",
+    thresholds: { warning: 2, critical: 5 },
+    decimals: 2,
+  },
 ];
 
 export const METRIC_MAP = Object.fromEntries(
@@ -136,3 +137,41 @@ export const TIME_RANGES = [
   { value: "30d", label: "30 Days" },
   { value: "6m", label: "6 Months" },
 ] as const;
+
+export const GALLERY_IMAGES = [
+  {
+    id: "g1",
+    url: "/src/assets/gallery/WhatsApp Image 2026-05-11 at 12.22.37.jpeg",
+    filename: "Dam View 1",
+  },
+  {
+    id: "g2",
+    url: "/src/assets/gallery/WhatsApp Image2 2026-05-11 at 12.22.37.jpeg",
+    filename: "Dam View 2",
+  },
+  {
+    id: "g3",
+    url: "/src/assets/gallery/WhatsApp Image 32026-05-11 at 12.22.36.jpeg",
+    filename: "Dam View 3",
+  },
+  {
+    id: "g4",
+    url: "/src/assets/gallery/WhatsApp Image 42026-05-11 at 12.22.36.jpeg",
+    filename: "Dam View 4",
+  },
+  {
+    id: "g5",
+    url: "/src/assets/gallery/WhatsApp Image5 2026-05-11 at 12.22.36.jpeg",
+    filename: "Dam View 5",
+  },
+  {
+    id: "g6",
+    url: "/src/assets/gallery/WhatsApp Image6 2026-05-11 at 12.22.33.jpeg",
+    filename: "Dam View 6",
+  },
+  {
+    id: "g7",
+    url: "/src/assets/gallery/WhatsApp Image7 2026-05-11 at 12.22.32.jpeg",
+    filename: "Dam View 7",
+  },
+];

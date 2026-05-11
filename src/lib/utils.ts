@@ -154,8 +154,8 @@ export function computeStats<K extends keyof SensorReading>(
 }
 
 /**
- * Enriches a sensor reading with calculated metrics (NH3, NH4)
- * Based on TAN (nh4 key), water_temperature, and pH
+ * Enriches a sensor reading with calculated metrics (NH3, NH4, Salinity)
+ * Based on TAN (nh4 key), water_temperature, pH, and Conductivity
  */
 export function enrichSensorReading(
   reading: SensorReading | null,
@@ -174,6 +174,11 @@ export function enrichSensorReading(
     reading.ammonia = TAN * f;
     reading.ammonium = TAN - reading.ammonia;
   }
+
+  // Salinity calculation: Salinity(mg/L) ≈ 0.64 × Conductivity(μS/cm)
+  // if (reading.conductivity != null) {
+  //   reading.salinity = 0.64 * reading.conductivity;
+  // }
 
   return reading;
 }

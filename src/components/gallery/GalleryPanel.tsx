@@ -1,45 +1,28 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Image as ImageIcon,
-  Upload,
   Trash2,
-  Plus,
-  Loader2,
   RefreshCw,
+  X,
+  Download,
 } from "@/components/ui/Icons";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { useGallery } from "@/hooks/useGallery";
 import { cn } from "@/lib/utils";
+import { GALLERY_IMAGES } from "@/lib/constants";
 
 export function GalleryPanel() {
   const { t } = useTranslation();
-  const fileInputRef = useRef<HTMLInputElement>(null);
   const [page, setPage] = useState(1);
+  const [selectedImage, setSelectedImage] = useState<{
+    url: string;
+    filename: string;
+  } | null>(null);
 
-  const {
-    images,
-    isLoading,
-    isUploading,
-    uploadImages,
-    deleteImage,
-    pagination,
-  } = useGallery({
+  const { images, deleteImage, pagination } = useGallery({
     pagination: { per_page: 12, current_page: page },
   });
-
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (files && files.length > 0) {
-      try {
-        await uploadImages(Array.from(files));
-      } catch (error) {
-        console.error("Upload failed", error);
-      } finally {
-        if (fileInputRef.current) fileInputRef.current.value = "";
-      }
-    }
-  };
 
   const handleDelete = async (id: string) => {
     if (window.confirm(t("gallery.confirmDelete"))) {
@@ -51,6 +34,8 @@ export function GalleryPanel() {
     }
   };
 
+  const allImages = [...GALLERY_IMAGES, ...images];
+
   return (
     <div className="flex flex-col gap-5 min-h-0">
       <div className="flex items-center justify-between gap-4 flex-wrap">
@@ -60,39 +45,9 @@ export function GalleryPanel() {
           description={t("gallery.description")}
         />
 
-        <div className="flex items-center gap-3">
-          <input
-            type="file"
-            multiple
-            accept="image/*"
-            className="hidden"
-            ref={fileInputRef}
-            onChange={handleFileChange}
-          />
-          <button
-            onClick={() => fileInputRef.current?.click()}
-            disabled={isUploading}
-            className={cn(
-              "flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all",
-              "bg-sky-500 hover:bg-sky-600 text-white shadow-lg shadow-sky-500/20 active:scale-95 disabled:opacity-50 disabled:pointer-events-none",
-            )}
-          >
-            {isUploading ? (
-              <Loader2 size={16} className="animate-spin" />
-            ) : (
-              <Upload size={16} />
-            )}
-            <span>{t("gallery.uploadImages")}</span>
-          </button>
-        </div>
+        {/* Upload Button hidden per user request */}
       </div>
-
-      {isLoading ? (
-        <div className="flex flex-col items-center justify-center py-20 gap-4">
-          <Loader2 size={40} className="text-sky-500 animate-spin" />
-          <p className="text-muted text-sm">{t("analytics.syncing")}</p>
-        </div>
-      ) : images.length === 0 ? (
+      {allImages.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 gap-4 glass rounded-2xl border-dashed">
           <div className="p-4 rounded-full bg-muted/10">
             <ImageIcon size={48} className="text-muted" />
@@ -105,24 +60,20 @@ export function GalleryPanel() {
               {t("gallery.noImagesDesc")}
             </p>
           </div>
-          <button
-            onClick={() => fileInputRef.current?.click()}
-            className="mt-2 text-sky-500 hover:text-sky-400 text-sm font-medium flex items-center gap-1.5"
-          >
-            <Plus size={16} /> {t("gallery.startUploading")}
-          </button>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 animate-fade-in">
-          {images.map((image) => (
+          {allImages.map((image) => (
             <div
               key={image.id}
-              className="group relative aspect-square glass rounded-xl overflow-hidden border-card hover:border-sky-500/50 transition-all duration-300 shadow-lg hover:shadow-sky-500/10"
+              onClick={() => setSelectedImage(image)}
+              className="group relative aspect-square glass rounded-xl overflow-hidden border-card hover:border-sky-500/50 transition-all duration-300 shadow-lg hover:shadow-sky-500/10 cursor-zoom-in"
             >
               <img
                 src={image.url}
                 alt={image.filename}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                referrerPolicy="no-referrer"
               />
 
               {/* Overlay */}
@@ -131,13 +82,18 @@ export function GalleryPanel() {
                   <span className="text-xs text-white/90 truncate font-medium">
                     {image.filename}
                   </span>
-                  <button
-                    onClick={() => handleDelete(image.id)}
-                    className="p-2 rounded-lg bg-red-500/20 hover:bg-red-500 text-red-400 hover:text-white transition-all backdrop-blur-md border border-red-500/30"
-                    title={t("gallery.deleteImage")}
-                  >
-                    <Trash2 size={14} />
-                  </button>
+                  {!image.id.startsWith("g") && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDelete(image.id);
+                      }}
+                      className="p-2 rounded-lg bg-red-500/20 hover:bg-red-500 text-red-400 hover:text-white transition-all backdrop-blur-md border border-red-500/30"
+                      title={t("gallery.deleteImage")}
+                    >
+                      <Trash2 size={14} />
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -168,6 +124,59 @@ export function GalleryPanel() {
           >
             <RefreshCw size={16} />
           </button>
+        </div>
+      )}
+
+      {/* Image Popup / Zoom Modal */}
+      {selectedImage && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8 animate-in fade-in duration-300"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div className="absolute inset-0 bg-black/90 backdrop-blur-sm" />
+
+          <div
+            className="relative max-w-5xl w-full h-full flex flex-col items-center justify-center gap-4 z-10"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="absolute top-0 right-0 flex items-center gap-2 p-4">
+              <button
+                onClick={() => setSelectedImage(null)}
+                className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all border border-white/10"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className="w-full h-full flex items-center justify-center overflow-hidden rounded-2xl glass border-white/10 shadow-2xl">
+              <img
+                src={selectedImage.url}
+                alt={selectedImage.filename}
+                className="max-w-full max-h-full object-contain animate-in zoom-in-95 duration-300"
+              />
+            </div>
+
+            <div className="flex items-center justify-between w-full px-2">
+              <div className="flex flex-col">
+                <h3 className="text-lg font-semibold text-white">
+                  {selectedImage.filename}
+                </h3>
+                <p className="text-sm text-white/60">
+                  {t("sidebar.gallery")} • Visual Record
+                </p>
+              </div>
+              <a
+                href={selectedImage.url}
+                download={selectedImage.filename}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white text-white hover:text-black transition-all border border-white/10 font-medium text-sm"
+              >
+                <Download size={16} />
+                <span>View Full Size</span>
+              </a>
+            </div>
+          </div>
         </div>
       )}
     </div>
