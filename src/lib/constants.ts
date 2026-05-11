@@ -1,4 +1,11 @@
 import type { MetricConfig, MetricKey } from "@/types";
+import img1 from "@/assets/gallery/WhatsApp Image 2026-05-11 at 12.22.37.jpeg";
+import img2 from "@/assets/gallery/WhatsApp Image2 2026-05-11 at 12.22.37.jpeg";
+import img3 from "@/assets/gallery/WhatsApp Image 32026-05-11 at 12.22.36.jpeg";
+import img4 from "@/assets/gallery/WhatsApp Image 42026-05-11 at 12.22.36.jpeg";
+import img5 from "@/assets/gallery/WhatsApp Image5 2026-05-11 at 12.22.36.jpeg";
+import img6 from "@/assets/gallery/WhatsApp Image6 2026-05-11 at 12.22.33.jpeg";
+import img7 from "@/assets/gallery/WhatsApp Image7 2026-05-11 at 12.22.32.jpeg";
 
 export const DEFAULT_STATE_ID = "918a4130-3c81-11f1-b61f-d3a5d06b2124";
 export const DEFAULT_METRIC: MetricKey = "water_temperature";
@@ -141,37 +148,37 @@ export const TIME_RANGES = [
 export const GALLERY_IMAGES = [
   {
     id: "g1",
-    url: "/src/assets/gallery/WhatsApp Image 2026-05-11 at 12.22.37.jpeg",
+    url: img1,
     filename: "Dam View 1",
   },
   {
     id: "g2",
-    url: "/src/assets/gallery/WhatsApp Image2 2026-05-11 at 12.22.37.jpeg",
+    url: img2,
     filename: "Dam View 2",
   },
   {
     id: "g3",
-    url: "/src/assets/gallery/WhatsApp Image 32026-05-11 at 12.22.36.jpeg",
+    url: img3,
     filename: "Dam View 3",
   },
   {
     id: "g4",
-    url: "/src/assets/gallery/WhatsApp Image 42026-05-11 at 12.22.36.jpeg",
+    url: img4,
     filename: "Dam View 4",
   },
   {
     id: "g5",
-    url: "/src/assets/gallery/WhatsApp Image5 2026-05-11 at 12.22.36.jpeg",
+    url: img5,
     filename: "Dam View 5",
   },
   {
     id: "g6",
-    url: "/src/assets/gallery/WhatsApp Image6 2026-05-11 at 12.22.33.jpeg",
+    url: img6,
     filename: "Dam View 6",
   },
   {
     id: "g7",
-    url: "/src/assets/gallery/WhatsApp Image7 2026-05-11 at 12.22.32.jpeg",
+    url: img7,
     filename: "Dam View 7",
   },
 ];
