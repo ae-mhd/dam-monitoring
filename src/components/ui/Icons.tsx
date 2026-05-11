@@ -40,6 +40,7 @@ import {
   Plus,
   Sprout,
   Download,
+  Clock,
   type LucideProps,
 } from "lucide-react";
 
@@ -79,6 +80,7 @@ const iconMap: Record<string, React.FC<LucideProps>> = {
   columns: Columns,
   sprout: Sprout,
   download: Download,
+  clock: Clock,
 };
 
 interface IconProps extends LucideProps {
@@ -131,4 +133,5 @@ export {
   Loader2,
   Plus,
   Download,
+  Clock,
 };

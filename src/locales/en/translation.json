@@ -180,6 +180,8 @@
     "noImagesDesc": "Start by uploading images to document the site conditions.",
     "startUploading": "Start uploading",
     "uploadSuccess": "Images uploaded successfully",
-    "deleteSuccess": "Image deleted successfully"
+    "deleteSuccess": "Image deleted successfully",
+    "visualRecord": "Visual Record",
+    "viewFullSize": "View Full Size"
   }
 }

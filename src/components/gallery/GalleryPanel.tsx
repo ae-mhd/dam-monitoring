@@ -162,7 +162,7 @@ export function GalleryPanel() {
                   {selectedImage.filename}
                 </h3>
                 <p className="text-sm text-white/60">
-                  {t("sidebar.gallery")} • Visual Record
+                  {t("sidebar.gallery")} • {t("gallery.visualRecord")}
                 </p>
               </div>
               <a
@@ -173,7 +173,7 @@ export function GalleryPanel() {
                 className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white text-white hover:text-black transition-all border border-white/10 font-medium text-sm"
               >
                 <Download size={16} />
-                <span>View Full Size</span>
+                <span>{t("gallery.viewFullSize")}</span>
               </a>
             </div>
           </div>

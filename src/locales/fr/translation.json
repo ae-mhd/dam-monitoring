@@ -180,6 +180,8 @@
     "noImagesDesc": "Commencez par télécharger des images pour documenter les conditions du site.",
     "startUploading": "Commencer le téléchargement",
     "uploadSuccess": "Images téléchargées avec succès",
-    "deleteSuccess": "Image supprimée avec succès"
+    "deleteSuccess": "Image supprimée avec succès",
+    "visualRecord": "Enregistrement visuel",
+    "viewFullSize": "Voir en taille réelle"
   }
 }

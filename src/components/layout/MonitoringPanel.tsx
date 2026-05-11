@@ -12,6 +12,8 @@ import { Icon, AlertCircle, RefreshCw, Activity } from "@/components/ui/Icons";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import { formatDateTime } from "@/lib/utils";
+import { Clock } from "@/components/ui/Icons";
 
 export function MonitoringPanel() {
   const { t } = useTranslation();
@@ -35,11 +37,24 @@ export function MonitoringPanel() {
 
   return (
     <div className="flex flex-col gap-5 min-h-0">
-      <PageHeader
-        icon={Activity}
-        title={t("monitoring.liveMonitoring")}
-        description={t("monitoring.liveMonitoringDesc")}
-      />
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <PageHeader
+          icon={Activity}
+          title={t("monitoring.liveMonitoring")}
+          description={t("monitoring.liveMonitoringDesc")}
+          className="mb-0"
+        />
+
+        {latestReading?.updated_at && (
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full glass border-sky-500/20 text-xs font-medium text-sky-400 animate-fade-in shadow-lg shadow-sky-500/5 transition-all hover:bg-sky-500/5">
+            <Clock size={14} className="animate-pulse" />
+            <span className="opacity-70">{t("location.lastUpdate")}:</span>
+            <span className="font-semibold whitespace-nowrap">
+              {formatDateTime(latestReading.updated_at)}
+            </span>
+          </div>
+        )}
+      </div>
 
       {/* Error Banner */}
       {hasError && (
