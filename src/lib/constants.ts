@@ -139,39 +139,39 @@ export const TIME_RANGES = [
 ] as const;
 
 export const GALLERY_IMAGES = [
-  {
-    id: "g1",
-    url: "/src/assets/gallery/WhatsApp Image 2026-05-11 at 12.22.37.jpeg",
-    filename: "Dam View 1",
-  },
-  {
-    id: "g2",
-    url: "/src/assets/gallery/WhatsApp Image2 2026-05-11 at 12.22.37.jpeg",
-    filename: "Dam View 2",
-  },
-  {
-    id: "g3",
-    url: "/src/assets/gallery/WhatsApp Image 32026-05-11 at 12.22.36.jpeg",
-    filename: "Dam View 3",
-  },
-  {
-    id: "g4",
-    url: "/src/assets/gallery/WhatsApp Image 42026-05-11 at 12.22.36.jpeg",
-    filename: "Dam View 4",
-  },
-  {
-    id: "g5",
-    url: "/src/assets/gallery/WhatsApp Image5 2026-05-11 at 12.22.36.jpeg",
-    filename: "Dam View 5",
-  },
-  {
-    id: "g6",
-    url: "/src/assets/gallery/WhatsApp Image6 2026-05-11 at 12.22.33.jpeg",
-    filename: "Dam View 6",
-  },
-  {
-    id: "g7",
-    url: "/src/assets/gallery/WhatsApp Image7 2026-05-11 at 12.22.32.jpeg",
-    filename: "Dam View 7",
-  },
+  // {
+  //   id: "g1",
+  //   url: "/src/assets/gallery/WhatsApp Image 2026-05-11 at 12.22.37.jpeg",
+  //   filename: "Dam View 1",
+  // },
+  // {
+  //   id: "g2",
+  //   url: "/src/assets/gallery/WhatsApp Image2 2026-05-11 at 12.22.37.jpeg",
+  //   filename: "Dam View 2",
+  // },
+  // {
+  //   id: "g3",
+  //   url: "/src/assets/gallery/WhatsApp Image 32026-05-11 at 12.22.36.jpeg",
+  //   filename: "Dam View 3",
+  // },
+  // {
+  //   id: "g4",
+  //   url: "/src/assets/gallery/WhatsApp Image 42026-05-11 at 12.22.36.jpeg",
+  //   filename: "Dam View 4",
+  // },
+  // {
+  //   id: "g5",
+  //   url: "/src/assets/gallery/WhatsApp Image5 2026-05-11 at 12.22.36.jpeg",
+  //   filename: "Dam View 5",
+  // },
+  // {
+  //   id: "g6",
+  //   url: "/src/assets/gallery/WhatsApp Image6 2026-05-11 at 12.22.33.jpeg",
+  //   filename: "Dam View 6",
+  // },
+  // {
+  //   id: "g7",
+  //   url: "/src/assets/gallery/WhatsApp Image7 2026-05-11 at 12.22.32.jpeg",
+  //   filename: "Dam View 7",
+  // },
 ];
