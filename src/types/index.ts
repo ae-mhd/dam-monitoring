@@ -97,8 +97,6 @@ export type AlertLevel =
 export type TimeRange = "24h" | "7d" | "30d" | "6m";
 export type MetricKey = keyof Pick<
   SensorReading,
-  | "temperature"
-  | "humidity"
   | "water_temperature"
   | "ph"
   | "conductivity"

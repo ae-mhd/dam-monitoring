@@ -44,9 +44,7 @@
     "realTimeMonitoring": "Surveillance en temps réel"
   },
   "metrics": {
-    "temperature": "Température de l'air",
     "water_temperature": "Température de l'eau",
-    "humidity": "Humidité",
     "ph": "Niveau de pH",
     "conductivity": "Conductivité",
     "turbidity": "Turbidité",

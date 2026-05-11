@@ -1,21 +1,9 @@
 import type { MetricConfig, MetricKey } from "@/types";
 
 export const DEFAULT_STATE_ID = "918a4130-3c81-11f1-b61f-d3a5d06b2124";
-export const DEFAULT_METRIC: MetricKey = "temperature";
+export const DEFAULT_METRIC: MetricKey = "water_temperature";
 
 export const METRICS: MetricConfig[] = [
-  {
-    key: "temperature",
-    label: "Air Temperature",
-    unit: "°C",
-    icon: "thermometer",
-    color: "#f97316",
-    gradientFrom: "#f9731640",
-    gradientTo: "#f9731605",
-    chartType: "area",
-    thresholds: { warning: 35, critical: 42 },
-    decimals: 1,
-  },
   {
     key: "water_temperature",
     label: "Water Temp",
@@ -27,18 +15,6 @@ export const METRICS: MetricConfig[] = [
     chartType: "area",
     thresholds: { warning: 30, critical: 38 },
     decimals: 1,
-  },
-  {
-    key: "humidity",
-    label: "Humidity",
-    unit: "%",
-    icon: "droplets",
-    color: "#38bdf8",
-    gradientFrom: "#38bdf840",
-    gradientTo: "#38bdf805",
-    chartType: "area",
-    thresholds: { warning: 85, critical: 95 },
-    decimals: 0,
   },
   {
     key: "ph",

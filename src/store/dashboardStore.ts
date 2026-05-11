@@ -12,7 +12,7 @@ export const useDashboardStore = create<DashboardStore>()(
       sidebarCollapsed: false,
       timeRange: "24h",
       activeView: "dashboard",
-      analyticsMetrics: ["temperature"],
+      analyticsMetrics: ["water_temperature"],
 
       setActiveMetric: (m: MetricKey) => set({ activeMetric: m }),
       setActiveView: (view: string) => set({ activeView: view }),

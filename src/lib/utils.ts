@@ -155,7 +155,7 @@ export function computeStats<K extends keyof SensorReading>(
 
 /**
  * Enriches a sensor reading with calculated metrics (NH3, NH4)
- * Based on TAN (nh4 key), temperature, and pH
+ * Based on TAN (nh4 key), water_temperature, and pH
  */
 export function enrichSensorReading(
   reading: SensorReading | null,
