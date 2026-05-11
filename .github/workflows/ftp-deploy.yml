@@ -27,4 +27,4 @@ jobs:
           password: ${{ secrets.FTP_PASS }}
           protocol: ftp
           local-dir: dist/ # Upload the Vite 'dist/' folder
-          server-dir: / # Remote FTP directory
+          server-dir: /dams/ # Remote FTP directory
