@@ -14,30 +14,34 @@ export default function App() {
 
   // URL Synchronization
   useEffect(() => {
+    const base = import.meta.env.BASE_URL;
+    
     // 1. Initialize view from URL on mount
-    const path = window.location.pathname.substring(1) || 'dashboard'
+    const path = window.location.pathname.replace(base, "") || 'dashboard';
     if (path !== activeView) {
-      setActiveView(path)
+      setActiveView(path);
     }
 
     // 2. Handle browser back/forward buttons
     const handlePopState = () => {
-      const newPath = window.location.pathname.substring(1) || 'dashboard'
-      setActiveView(newPath)
-    }
+      const newPath = window.location.pathname.replace(base, "") || 'dashboard';
+      setActiveView(newPath);
+    };
 
-    window.addEventListener('popstate', handlePopState)
-    return () => window.removeEventListener('popstate', handlePopState)
-  }, [setActiveView]) // Run once on mount
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [setActiveView]);
 
   // 3. Update URL when activeView changes
   useEffect(() => {
-    const currentPath = window.location.pathname.substring(1) || 'dashboard'
+    const base = import.meta.env.BASE_URL;
+    const currentPath = window.location.pathname.replace(base, "") || 'dashboard';
+    
     if (activeView !== currentPath) {
-      const newPath = activeView === 'dashboard' ? '/' : `/${activeView}`
-      window.history.pushState({ view: activeView }, '', newPath)
+      const newPath = activeView === 'dashboard' ? base : `${base}${activeView}`;
+      window.history.pushState({ view: activeView }, '', newPath);
     }
-  }, [activeView])
+  }, [activeView]);
 
   return (
     <>
