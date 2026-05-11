@@ -7,12 +7,14 @@ import {
   Bell,
   ChevronLeft,
   ChevronRight,
+  Image,
 } from "@/components/ui/Icons";
 
 const NAV_ITEMS = [
   { id: "dashboard", icon: Home },
   { id: "analytics", icon: BarChart2 },
   { id: "alerts", icon: Bell },
+  { id: "gallery", icon: Image },
 ];
 
 export function Sidebar() {

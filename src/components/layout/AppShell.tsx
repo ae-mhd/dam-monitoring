@@ -4,6 +4,7 @@ import { LocationPanel } from "@/components/location/LocationPanel";
 import { MonitoringPanel } from "@/components/layout/MonitoringPanel";
 import { AnalyticsPanel } from "@/components/layout/AnalyticsPanel";
 import { AlertsPanel } from "@/components/layout/AlertsPanel";
+import { GalleryPanel } from "@/components/gallery/GalleryPanel";
 import { useDashboardStore } from '@/store/dashboardStore'
 import { cn } from "@/lib/utils";
 
@@ -35,13 +36,15 @@ export function AppShell() {
                   <AnalyticsPanel />
                 ) : activeView === 'alerts' ? (
                   <AlertsPanel />
+                ) : activeView === 'gallery' ? (
+                  <GalleryPanel />
                 ) : (
                   <MonitoringPanel />
                 )}
               </div>
 
-              {/* Right: Location Panel - Hidden in Analytics and Alerts */}
-              {activeView !== 'analytics' && activeView !== 'alerts' && (
+              {/* Right: Location Panel - Hidden in Analytics, Alerts and Gallery */}
+              {activeView !== 'analytics' && activeView !== 'alerts' && activeView !== 'gallery' && (
                 <aside className="w-full lg:w-[280px] xl:w-[300px] shrink-0 flex flex-col gap-4">
                   <LocationPanel />
                 </aside>

@@ -65,6 +65,26 @@ export interface PaginatedResponse<T> {
   total: number;
 }
 
+// ── Gallery Types ─────────────────────────────────────────────────────────────
+
+export interface GalleryImage {
+  id: string;
+  url: string;
+  filename: string;
+  type: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface GallerySearchFilters {
+  pagination?: {
+    per_page: number;
+    current_page: number;
+  };
+  search?: string;
+  type?: string;
+}
+
 // ── Metric Config ─────────────────────────────────────────────────────────────
 
 export type AlertLevel =

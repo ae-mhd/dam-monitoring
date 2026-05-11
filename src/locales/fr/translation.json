@@ -16,7 +16,8 @@
   "sidebar": {
     "dashboard": "Tableau de bord",
     "analytics": "Analyses",
-    "alerts": "Alertes"
+    "alerts": "Alertes",
+    "gallery": "Galerie"
   },
   "monitoring": {
     "liveMonitoring": "Surveillance en direct",
@@ -171,5 +172,16 @@
         "normal": "Bonne qualité"
       }
     }
+  },
+  "gallery": {
+    "description": "Documentation visuelle et images de surveillance du site",
+    "uploadImages": "Télécharger des images",
+    "confirmDelete": "Êtes-vous sûr de vouloir supprimer cette image ?",
+    "deleteImage": "Supprimer l'image",
+    "noImages": "Aucune image trouvée",
+    "noImagesDesc": "Commencez par télécharger des images pour documenter les conditions du site.",
+    "startUploading": "Commencer le téléchargement",
+    "uploadSuccess": "Images téléchargées avec succès",
+    "deleteSuccess": "Image supprimée avec succès"
   }
 }

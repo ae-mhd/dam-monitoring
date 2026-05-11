@@ -16,7 +16,8 @@
   "sidebar": {
     "dashboard": "Dashboard",
     "analytics": "Analytics",
-    "alerts": "Alerts"
+    "alerts": "Alerts",
+    "gallery": "Gallery"
   },
   "monitoring": {
     "liveMonitoring": "Live Monitoring",
@@ -171,5 +172,16 @@
         "normal": "Good quality"
       }
     }
+  },
+  "gallery": {
+    "description": "Visual documentation and site monitoring images",
+    "uploadImages": "Upload Images",
+    "confirmDelete": "Are you sure you want to delete this image?",
+    "deleteImage": "Delete image",
+    "noImages": "No images found",
+    "noImagesDesc": "Start by uploading images to document the site conditions.",
+    "startUploading": "Start uploading",
+    "uploadSuccess": "Images uploaded successfully",
+    "deleteSuccess": "Image deleted successfully"
   }
 }
