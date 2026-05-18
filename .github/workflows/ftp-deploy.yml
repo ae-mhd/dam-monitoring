@@ -16,6 +16,9 @@ jobs:
       - name: Install dependencies
         run: npm install # Install project dependencies
 
+      - name: Run tests
+        run: npm run test:ci
+
       - name: Build project
         run: npm run build # Generate the 'dist/' folder using Vite
 
