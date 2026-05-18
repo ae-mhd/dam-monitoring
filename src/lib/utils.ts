@@ -61,12 +61,13 @@ export const ALERT_RULES: Partial<Record<MetricKey, AlertRule[]>> = {
     { max: 2.0, level: "warning", label: "Pollution likely" },
     { max: Infinity, level: "critical", label: "Severe contamination" },
   ],
-  // 🦠 Bacterial Concentration (CFU/mL)
+
+  // 🦠 Bacterial Concentration (×10⁶ UFC/mL)
   concentration: [
-    { max: 1e3, level: "normal", label: "Low bacterial activity" },
-    { max: 1e4, level: "caution", label: "Moderate contamination" },
-    { max: 1e5, level: "warning", label: "High bacterial load" },
-    { max: Infinity, level: "critical", label: "Severe microbiological contamination" },
+    { max: 0.001, level: "normal", label: "Safe level" },
+    { max: 0.01, level: "caution", label: "Low contamination" },
+    { max: 0.1, level: "warning", label: "Moderate contamination" },
+    { max: Infinity, level: "critical", label: "Severe contamination" },
   ],
 };
 
@@ -84,7 +85,8 @@ export function getAlertInfo(
   if (!rules) return { level: "none", label: "" };
   const comparisonValue = config.key === "concentration" ? value * 1e6 : value;
   for (const rule of rules) {
-    if (comparisonValue <= rule.max) return { level: rule.level, label: rule.label };
+    if (comparisonValue <= rule.max)
+      return { level: rule.level, label: rule.label };
   }
   return { level: "none", label: "" };
 }

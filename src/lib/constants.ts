@@ -141,7 +141,7 @@ export const METRICS: MetricConfig[] = [
     gradientFrom: "#f43f5e40",
     gradientTo: "#f43f5e05",
     chartType: "line",
-    thresholds: { warning: 1.5, critical: 2.5 },
+    thresholds: { warning: 0.01, critical: 0.1 },
     decimals: 3,
   },
 ];
