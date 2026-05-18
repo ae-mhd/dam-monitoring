@@ -1,8 +1,10 @@
-import { useMemo } from 'react'
+import { useMemo } from "react";
 import {
   ResponsiveContainer,
   AreaChart,
   LineChart,
+  ScatterChart,
+  Scatter,
   Area,
   Line,
   XAxis,
@@ -10,29 +12,29 @@ import {
   CartesianGrid,
   Tooltip,
   ReferenceLine,
-} from 'recharts'
-import type { TooltipPayload } from 'recharts/types/state/tooltipSlice'
-import { Skeleton } from '@/components/ui/Skeleton'
-import { formatValue, computeStats } from '@/lib/utils'
-import type { MetricConfig, SensorReading } from '@/types'
-import { useTranslation } from 'react-i18next'
+} from "recharts";
+import type { TooltipPayload } from "recharts/types/state/tooltipSlice";
+import { Skeleton } from "@/components/ui/Skeleton";
+import { formatValue, computeStats } from "@/lib/utils";
+import type { MetricConfig, SensorReading } from "@/types";
+import { useTranslation } from "react-i18next";
 
 interface MetricChartProps {
-  config: MetricConfig
-  data: SensorReading[]
-  isLoading: boolean
+  config: MetricConfig;
+  data: SensorReading[];
+  isLoading: boolean;
 }
 
 interface CustomTooltipProps {
-  active?: boolean
-  payload?: TooltipPayload
-  label?: string | number
-  config: MetricConfig
+  active?: boolean;
+  payload?: TooltipPayload;
+  label?: string | number;
+  config: MetricConfig;
 }
 
 function CustomTooltip({ active, payload, label, config }: CustomTooltipProps) {
-  if (!active || !payload?.length) return null
-  const value = payload[0]?.value
+  if (!active || !payload?.length) return null;
+  const value = payload[0]?.value;
   return (
     <div className="glass rounded-xl px-3 py-2 text-xs shadow-xl border border-slate-700">
       <p className="text-muted mb-1">{label}</p>
@@ -40,50 +42,141 @@ function CustomTooltip({ active, payload, label, config }: CustomTooltipProps) {
         {formatValue(value as number | null, config.decimals)} {config.unit}
       </p>
     </div>
-  )
+  );
+}
+
+function ConcentrationScatterChart({
+  config,
+  data,
+  t,
+}: {
+  config: MetricConfig;
+  data: SensorReading[];
+  t: (key: string) => string;
+}) {
+  const scatterData = useMemo(
+    () =>
+      data
+        .filter((d) => d.concentration != null && d.turbidity != null)
+        .map((d) => ({ x: d.concentration!, y: d.turbidity! })),
+    [data],
+  );
+
+  const xMax = Math.max(...scatterData.map((d) => d.x), 3);
+  const regressionData = useMemo(
+    () => [
+      { x: 0, y: -17.063 },
+      { x: xMax, y: 74.129 * xMax - 17.063 },
+    ],
+    [xMax],
+  );
+
+  return (
+    <ResponsiveContainer width="100%" height={260}>
+      <ScatterChart margin={{ top: 10, right: 16, left: -10, bottom: 0 }}>
+        <CartesianGrid
+          strokeDasharray="3 3"
+          stroke="rgba(148,163,184,0.08)"
+        />
+        <XAxis
+          type="number"
+          dataKey="x"
+          name={t("metrics.concentration")}
+          unit=" ×10⁶"
+          tick={{ fontSize: 10, fill: "#64748b" }}
+          tickLine={false}
+          axisLine={false}
+        />
+        <YAxis
+          type="number"
+          dataKey="y"
+          name={t("metrics.turbidity")}
+          unit=" UTN"
+          tick={{ fontSize: 10, fill: "#64748b" }}
+          tickLine={false}
+          axisLine={false}
+          width={52}
+        />
+        <Tooltip
+          cursor={{ strokeDasharray: "3 3" }}
+          content={({ active, payload }) => {
+            if (!active || !payload?.length) return null;
+            const point = payload[0]?.payload as { x: number; y: number };
+            return (
+              <div className="glass rounded-xl px-3 py-2 text-xs shadow-xl border border-slate-700">
+                <p className="text-muted mb-1">
+                  {t("metrics.concentration")}: {point.x.toFixed(3)} ×10⁶
+                  UFC/mL
+                </p>
+                <p className="font-bold" style={{ color: config.color }}>
+                  {t("metrics.turbidity")}: {point.y.toFixed(1)} UTN
+                </p>
+              </div>
+            );
+          }}
+        />
+        <Scatter data={scatterData} fill={config.color} />
+        <Scatter
+          data={regressionData}
+          fill="none"
+          line={{
+            stroke: config.color,
+            strokeWidth: 2,
+            strokeDasharray: "5 5",
+          }}
+          shape={() => null}
+        />
+      </ScatterChart>
+    </ResponsiveContainer>
+  );
 }
 
 export function MetricChart({ config, data, isLoading }: MetricChartProps) {
-  const { t, i18n } = useTranslation()
+  const { t, i18n } = useTranslation();
   const chartData = useMemo(
     () =>
       data.map((d) => ({
         time: new Date(d.created_at).toLocaleTimeString(i18n.language, {
-          hour: '2-digit',
-          minute: '2-digit',
+          hour: "2-digit",
+          minute: "2-digit",
         }),
         value: d[config.key] ?? null,
       })),
-    [data, config.key, i18n.language]
-  )
+    [data, config.key, i18n.language],
+  );
 
-  const stats = computeStats(data, config.key)
+  const stats = computeStats(data, config.key);
 
   if (isLoading) {
-    return <Skeleton className="w-full h-64 rounded-xl" />
+    return <Skeleton className="w-full h-64 rounded-xl" />;
   }
 
   if (!chartData.length) {
     return (
       <div className="w-full h-64 rounded-xl flex flex-col items-center justify-center text-muted gap-2">
         <span className="text-3xl opacity-30">📊</span>
-        <p className="text-sm">{t('analytics.noData')}</p>
+        <p className="text-sm">{t("analytics.noData")}</p>
       </div>
-    )
+    );
   }
 
-  const gradientId = `gradient-${config.key}`
+  // Special scatter chart for concentration: X = concentration, Y = turbidity
+  if (config.key === "concentration") {
+    return <ConcentrationScatterChart config={config} data={data} t={t} />;
+  }
+
+  const gradientId = `gradient-${config.key}`;
 
   const sharedProps = {
     data: chartData,
     margin: { top: 10, right: 16, left: -10, bottom: 0 },
-  }
+  };
 
   const axisProps = {
     xAxis: (
       <XAxis
         dataKey="time"
-        tick={{ fontSize: 10, fill: '#64748b' }}
+        tick={{ fontSize: 10, fill: "#64748b" }}
         tickLine={false}
         axisLine={false}
         interval="preserveStartEnd"
@@ -91,7 +184,7 @@ export function MetricChart({ config, data, isLoading }: MetricChartProps) {
     ),
     yAxis: (
       <YAxis
-        tick={{ fontSize: 10, fill: '#64748b' }}
+        tick={{ fontSize: 10, fill: "#64748b" }}
         tickLine={false}
         axisLine={false}
         tickFormatter={(v: number) => formatValue(v, config.decimals)}
@@ -99,28 +192,37 @@ export function MetricChart({ config, data, isLoading }: MetricChartProps) {
       />
     ),
     grid: (
-      <CartesianGrid strokeDasharray="3 3" stroke="rgba(148,163,184,0.08)" vertical={false} />
+      <CartesianGrid
+        strokeDasharray="3 3"
+        stroke="rgba(148,163,184,0.08)"
+        vertical={false}
+      />
     ),
     tooltip: (
       <Tooltip
         content={(props) => <CustomTooltip {...props} config={config} />}
-        cursor={{ stroke: config.color, strokeWidth: 1, strokeDasharray: '4 2' }}
-      />
-    ),
-    avgLine: stats.avg != null ? (
-      <ReferenceLine
-        y={stats.avg}
-        stroke={config.color}
-        strokeDasharray="4 4"
-        strokeOpacity={0.4}
-        label={{
-          value: `${t('analytics.avg')} ${formatValue(stats.avg, config.decimals)}`,
-          position: 'insideTopRight',
-          fontSize: 9,
-          fill: config.color,
+        cursor={{
+          stroke: config.color,
+          strokeWidth: 1,
+          strokeDasharray: "4 2",
         }}
       />
-    ) : null,
+    ),
+    avgLine:
+      stats.avg != null ? (
+        <ReferenceLine
+          y={stats.avg}
+          stroke={config.color}
+          strokeDasharray="4 4"
+          strokeOpacity={0.4}
+          label={{
+            value: `${t("analytics.avg")} ${formatValue(stats.avg, config.decimals)}`,
+            position: "insideTopRight",
+            fontSize: 9,
+            fill: config.color,
+          }}
+        />
+      ) : null,
     warnLine: (
       <ReferenceLine
         y={config.thresholds.warning}
@@ -137,11 +239,11 @@ export function MetricChart({ config, data, isLoading }: MetricChartProps) {
         strokeOpacity={0.35}
       />
     ),
-  }
+  };
 
   return (
     <ResponsiveContainer width="100%" height={260}>
-      {config.chartType === 'area' ? (
+      {config.chartType === "area" ? (
         <AreaChart {...sharedProps}>
           <defs>
             <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
@@ -163,10 +265,16 @@ export function MetricChart({ config, data, isLoading }: MetricChartProps) {
             strokeWidth={2}
             fill={`url(#${gradientId})`}
             dot={false}
-            activeDot={{ r: 4, fill: config.color, stroke: '#0f172a', strokeWidth: 2 }}
+            activeDot={{
+              r: 4,
+              fill: config.color,
+              stroke: "#0f172a",
+              strokeWidth: 2,
+            }}
             isAnimationActive={true}
             animationDuration={600}
           />
+
         </AreaChart>
       ) : (
         <LineChart {...sharedProps}>
@@ -183,12 +291,18 @@ export function MetricChart({ config, data, isLoading }: MetricChartProps) {
             stroke={config.color}
             strokeWidth={2}
             dot={false}
-            activeDot={{ r: 4, fill: config.color, stroke: '#0f172a', strokeWidth: 2 }}
+            activeDot={{
+              r: 4,
+              fill: config.color,
+              stroke: "#0f172a",
+              strokeWidth: 2,
+            }}
             isAnimationActive={true}
             animationDuration={600}
           />
+
         </LineChart>
       )}
     </ResponsiveContainer>
-  )
+  );
 }

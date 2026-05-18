@@ -29,6 +29,7 @@ export interface SensorReading {
   chlorophil?: number | null;
   ammonia?: number | null;
   ammonium?: number | null;
+  concentration?: number | null;
   deleted_at: string | null;
   created_at: string;
   updated_at: string;
@@ -107,6 +108,7 @@ export type MetricKey = keyof Pick<
   | "chlorophil"
   | "ammonia"
   | "ammonium"
+  | "concentration"
 >;
 
 export interface MetricThreshold {

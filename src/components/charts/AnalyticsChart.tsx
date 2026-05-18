@@ -7,7 +7,8 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend
+  Legend,
+
 } from 'recharts'
 import type { TooltipPayload } from 'recharts/types/state/tooltipSlice'
 import { Skeleton } from '@/components/ui/Skeleton'
@@ -144,6 +145,7 @@ export function AnalyticsChart({ configs, data, isLoading }: AnalyticsChartProps
             animationDuration={600}
           />
         ))}
+
       </LineChart>
     </ResponsiveContainer>
   )

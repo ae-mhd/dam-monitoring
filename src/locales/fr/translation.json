@@ -54,6 +54,7 @@
     "ammonia": "NH₃ (Ammoniac)",
     "ammonium": "NH₄⁺ (Ammonium)",
     "chlorophil": "Chlorophylle",
+    "concentration": "Concentration bactérienne",
     "up": "En hausse",
     "down": "En baisse",
     "stable": "Stable"
@@ -168,6 +169,12 @@
         "warning": "Pollution probable",
         "caution": "Concentration élevée",
         "normal": "Bonne qualité"
+      },
+      "concentration": {
+        "critical": "Contamination microbiologique sévère",
+        "warning": "Forte charge bactérienne",
+        "caution": "Contamination modérée",
+        "normal": "Faible activité bactérienne"
       }
     }
   },

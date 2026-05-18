@@ -61,6 +61,13 @@ export const ALERT_RULES: Partial<Record<MetricKey, AlertRule[]>> = {
     { max: 2.0, level: "warning", label: "Pollution likely" },
     { max: Infinity, level: "critical", label: "Severe contamination" },
   ],
+  // 🦠 Bacterial Concentration (CFU/mL)
+  concentration: [
+    { max: 1e3, level: "normal", label: "Low bacterial activity" },
+    { max: 1e4, level: "caution", label: "Moderate contamination" },
+    { max: 1e5, level: "warning", label: "High bacterial load" },
+    { max: Infinity, level: "critical", label: "Severe microbiological contamination" },
+  ],
 };
 
 export interface AlertInfo {
@@ -75,8 +82,9 @@ export function getAlertInfo(
   if (value == null) return { level: "offline", label: "Offline" };
   const rules = ALERT_RULES[config.key];
   if (!rules) return { level: "none", label: "" };
+  const comparisonValue = config.key === "concentration" ? value * 1e6 : value;
   for (const rule of rules) {
-    if (value <= rule.max) return { level: rule.level, label: rule.label };
+    if (comparisonValue <= rule.max) return { level: rule.level, label: rule.label };
   }
   return { level: "none", label: "" };
 }
@@ -180,6 +188,11 @@ export function enrichSensorReading(
     reading.salinity = 0.64 * reading.conductivity;
   }
 
+  // Concentration bactérienne: from y = 74.129x - 17.063 → x = (y + 17.063) / 74.129
+  if (reading.turbidity != null) {
+    reading.concentration = (reading.turbidity + 17.063) / 74.129;
+  }
+
   return reading;
 }
 
@@ -196,7 +209,8 @@ export function formatDateTime(dateStr: string | null | undefined): string {
       second: "2-digit",
       hour12: false,
     }).format(date);
-  } catch (e) {
+  } catch (e: any) {
+    console.log(e);
     return dateStr;
   }
 }

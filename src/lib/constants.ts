@@ -132,6 +132,18 @@ export const METRICS: MetricConfig[] = [
     thresholds: { warning: 2, critical: 5 },
     decimals: 2,
   },
+  {
+    key: "concentration",
+    label: "Bacterial Concentration",
+    unit: "×10⁶ UFC/mL",
+    icon: "bug",
+    color: "#f43f5e",
+    gradientFrom: "#f43f5e40",
+    gradientTo: "#f43f5e05",
+    chartType: "line",
+    thresholds: { warning: 1.5, critical: 2.5 },
+    decimals: 3,
+  },
 ];
 
 export const METRIC_MAP = Object.fromEntries(
