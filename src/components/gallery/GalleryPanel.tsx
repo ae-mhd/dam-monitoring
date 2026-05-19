@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import {
   Image as ImageIcon,
   Trash2,
-  RefreshCw,
   X,
   Download,
   Upload,
@@ -162,16 +161,21 @@ export function GalleryPanel() {
             className={cn(
               "flex items-center justify-center w-9 h-9 rounded-xl border border-slate-700/50 bg-slate-800/50 text-slate-300 transition-all duration-200",
               "hover:bg-slate-700 hover:text-white hover:border-slate-600 active:scale-95",
-              "disabled:opacity-40 disabled:pointer-events-none"
+              "disabled:opacity-40 disabled:pointer-events-none",
             )}
             aria-label="Previous page"
           >
             <ChevronLeft size={18} />
           </button>
-          
+
           <div className="flex items-center justify-center px-4 h-9 rounded-xl border border-slate-700/50 bg-slate-900/80 shadow-inner">
             <span className="text-xs font-medium text-slate-400">
-              {t("analytics.page")} <span className="text-sky-400 text-sm mx-1">{page}</span> {t("alerts.of")} <span className="text-slate-200 ml-1">{Math.max(1, pagination.lastPage)}</span>
+              {t("analytics.page")}{" "}
+              <span className="text-sky-400 text-sm mx-1">{page}</span>{" "}
+              {t("alerts.of")}{" "}
+              <span className="text-slate-200 ml-1">
+                {Math.max(1, pagination.lastPage)}
+              </span>
             </span>
           </div>
 
@@ -181,7 +185,7 @@ export function GalleryPanel() {
             className={cn(
               "flex items-center justify-center w-9 h-9 rounded-xl border border-slate-700/50 bg-slate-800/50 text-slate-300 transition-all duration-200",
               "hover:bg-slate-700 hover:text-white hover:border-slate-600 active:scale-95",
-              "disabled:opacity-40 disabled:pointer-events-none"
+              "disabled:opacity-40 disabled:pointer-events-none",
             )}
             aria-label="Next page"
           >
