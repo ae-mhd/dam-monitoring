@@ -23,31 +23,36 @@ export function useLatestSensorReading() {
   });
 }
 
+function sortByCreatedAtAsc(readings: SensorReading[]): SensorReading[] {
+  return [...readings].sort(
+    (a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
+  );
+}
+
 export function useHistoricalReadings() {
   const stateId = useDashboardStore((s) => s.selectedStateId);
-  const timeRange = useDashboardStore((s) => s.timeRange);
   return useQuery({
-    queryKey: ["historicalReadings", stateId, timeRange],
+    queryKey: ["historicalReadings", stateId],
     queryFn: async () => {
-      const data = await fetchHistoricalReadings(stateId, timeRange);
-      return data.map(enrichSensorReading) as SensorReading[];
+      const data = await fetchHistoricalReadings(stateId);
+      return sortByCreatedAtAsc(data.map(enrichSensorReading) as SensorReading[]);
     },
     staleTime: 60_000,
     retry: 2,
   });
 }
 
-export function usePaginatedSensorReadings(page: number, perPage: number = 10) {
+export function usePaginatedSensorReadings(page: number, perPage: number = 10, from?: string, to?: string) {
   const stateId = useDashboardStore((s) => s.selectedStateId);
-  const timeRange = useDashboardStore((s) => s.timeRange);
   return useQuery({
-    queryKey: ["paginatedReadings", stateId, timeRange, page, perPage],
+    queryKey: ["paginatedReadings", stateId, page, perPage, from, to],
     queryFn: async () => {
       const response = await fetchPaginatedSensorReadings(
         stateId,
-        timeRange,
         page,
         perPage,
+        from,
+        to,
       );
       return {
         ...response,

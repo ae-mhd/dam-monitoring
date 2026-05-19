@@ -1,6 +1,5 @@
 import api from "./api";
 import type { PaginatedResponse, SensorReading, StationState } from "@/types";
-import { getTimeRangeDates } from "@/lib/utils";
 
 // Fetch latest single sensor reading for a state
 export async function fetchLatestSensorReading(
@@ -20,19 +19,15 @@ export async function fetchLatestSensorReading(
 // Fetch historical sensor readings
 export async function fetchHistoricalReadings(
   stateId: string,
-  timeRange: string,
+  perPage: number = 300,
+  order: "asc" | "desc" = "desc",
 ): Promise<SensorReading[]> {
-  const { from, to } = getTimeRangeDates(timeRange);
-  const perPage = timeRange === "24h" ? 288 : timeRange === "7d" ? 168 : 120;
-
   const { data } = await api.post<PaginatedResponse<SensorReading>>(
     "/sensor-readings/search",
     {
       pagination: { per_page: perPage, current_page: 1 },
       orderBy: "created_at",
-      order: "desc",
-      from,
-      to,
+      order,
       state_id: stateId,
     },
   );
@@ -42,20 +37,19 @@ export async function fetchHistoricalReadings(
 // Fetch paginated sensor readings for table
 export async function fetchPaginatedSensorReadings(
   stateId: string,
-  timeRange: string,
   page: number = 1,
   perPage: number = 10,
+  from?: string,
+  to?: string,
 ): Promise<PaginatedResponse<SensorReading>> {
-  const { from, to } = getTimeRangeDates(timeRange);
-
   const { data } = await api.post<PaginatedResponse<SensorReading>>(
     "/sensor-readings/search",
     {
       pagination: { per_page: perPage, current_page: page },
       orderBy: "created_at",
       order: "desc",
-      from,
-      to,
+      ...(from && { from }),
+      ...(to && { to }),
       state_id: stateId,
     },
   );

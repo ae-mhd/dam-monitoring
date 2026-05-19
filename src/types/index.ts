@@ -70,9 +70,13 @@ export interface PaginatedResponse<T> {
 
 export interface GalleryImage {
   id: string;
+  name: string;
+  description: string | null;
+  extension: string;
+  path: string;
   url: string;
-  filename: string;
   type: string;
+  deleted_at: string | null;
   created_at: string;
   updated_at: string;
 }

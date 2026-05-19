@@ -93,7 +93,7 @@ export function AnalyticsPanel() {
               <p className="text-xs text-muted">{t("analytics.compareTrends")}</p>
             </div>
           </div>
-          <ChartToolbar />
+          {/* <ChartToolbar /> */}
         </div>
 
         {/* Chart */}

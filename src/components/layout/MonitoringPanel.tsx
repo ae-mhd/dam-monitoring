@@ -113,7 +113,7 @@ export function MonitoringPanel() {
               <p className="text-xs text-muted">{config.unit}</p>
             </div>
           </div>
-          <ChartToolbar />
+          {/* <ChartToolbar /> */}
         </div>
 
         {/* Chart */}

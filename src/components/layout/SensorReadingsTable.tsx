@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { usePaginatedSensorReadings } from '@/hooks/useSensorData'
 import { METRICS } from '@/lib/constants'
 import { formatValue } from '@/lib/utils'
-import { ChevronLeft, ChevronRight, RefreshCw, AlertCircle, Database, Columns, Check } from '@/components/ui/Icons'
+import { ChevronLeft, ChevronRight, RefreshCw, AlertCircle, Database, Columns, Check, X } from '@/components/ui/Icons'
 import { useQueryClient } from '@tanstack/react-query'
 import { cn } from '@/lib/utils'
 import type { MetricKey } from '@/types'
@@ -11,9 +11,11 @@ import { useTranslation } from 'react-i18next'
 export function SensorReadingsTable() {
   const { t, i18n } = useTranslation()
   const [page, setPage] = useState(1)
+  const [perPage, setPerPage] = useState(20)
+  const [fromDate, setFromDate] = useState('')
+  const [toDate, setToDate] = useState('')
   const [visibleColumns, setVisibleColumns] = useState<MetricKey[]>(METRICS.map(m => m.key as MetricKey))
   const [showColumnToggle, setShowColumnToggle] = useState(false)
-  const perPage = 10
   const qc = useQueryClient()
   const toggleRef = useRef<HTMLDivElement>(null)
 
@@ -41,7 +43,7 @@ export function SensorReadingsTable() {
 
   const filteredMetrics = METRICS.filter(m => visibleColumns.includes(m.key as MetricKey))
 
-  const { data, isLoading, isError, isFetching } = usePaginatedSensorReadings(page, perPage)
+  const { data, isLoading, isError, isFetching } = usePaginatedSensorReadings(page, perPage, fromDate || undefined, toDate || undefined)
 
   if (isError) {
     return (
@@ -141,6 +143,32 @@ export function SensorReadingsTable() {
         </div>
       </div>
 
+      {/* Date Range Filter */}
+      <div className="px-6 py-3 border-b border-slate-800/60 flex items-center gap-3 flex-wrap">
+        <input
+          type="date"
+          value={fromDate}
+          onChange={(e) => { setFromDate(e.target.value); setPage(1); }}
+          className="px-3 py-1.5 rounded-lg border border-slate-700/50 bg-slate-800/60 text-xs text-slate-200 focus:outline-none focus:border-sky-500/50"
+        />
+        <span className="text-xs text-slate-500">{t('location.to')}</span>
+        <input
+          type="date"
+          value={toDate}
+          onChange={(e) => { setToDate(e.target.value); setPage(1); }}
+          className="px-3 py-1.5 rounded-lg border border-slate-700/50 bg-slate-800/60 text-xs text-slate-200 focus:outline-none focus:border-sky-500/50"
+        />
+        {(fromDate || toDate) && (
+          <button
+            onClick={() => { setFromDate(''); setToDate(''); setPage(1); }}
+            className="flex items-center gap-1 px-2 py-1.5 rounded-lg text-xs text-red-400 hover:bg-red-500/10 border border-red-500/20 transition-colors"
+          >
+            <X size={12} />
+            {t('analytics.clear')}
+          </button>
+        )}
+      </div>
+
       {/* Table Container */}
       <div className="overflow-x-auto custom-scrollbar relative">
         <table className="w-full text-sm text-left border-collapse">
@@ -224,10 +252,21 @@ export function SensorReadingsTable() {
 
       {/* Footer / Pagination */}
       <div className="px-6 py-4 border-t border-slate-800/60 bg-slate-900/50 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div className="text-sm text-slate-400">
-          {t('analytics.showing')} <span className="text-slate-200 font-semibold">{data ? data.from : 0}</span> {t('location.to')}{' '}
-          <span className="text-slate-200 font-semibold">{data ? data.to : 0}</span> {t('alerts.of')}{' '}
-          <span className="text-slate-200 font-semibold">{data?.total || 0}</span> {t('analytics.results')}
+        <div className="flex items-center gap-4">
+          <div className="text-sm text-slate-400">
+            {t('analytics.showing')} <span className="text-slate-200 font-semibold">{data ? data.from : 0}</span> {t('location.to')}{' '}
+            <span className="text-slate-200 font-semibold">{data ? data.to : 0}</span> {t('alerts.of')}{' '}
+            <span className="text-slate-200 font-semibold">{data?.total || 0}</span> {t('analytics.results')}
+          </div>
+          <select
+            value={perPage}
+            onChange={(e) => { setPerPage(Number(e.target.value)); setPage(1); }}
+            className="px-2 py-1.5 rounded-lg border border-slate-700/50 bg-slate-800/60 text-xs text-slate-200 focus:outline-none focus:border-sky-500/50"
+          >
+            {[20, 50, 100, 200, 400, 800, 1000].map((n) => (
+              <option key={n} value={n}>{n} / {t('analytics.page')}</option>
+            ))}
+          </select>
         </div>
         
         <div className="flex items-center gap-3">
